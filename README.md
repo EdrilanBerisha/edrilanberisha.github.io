@@ -29,8 +29,7 @@
 <a href="https://nikolockenvitz.github.io/sap-addon/">
 <img src="https://nikolockenvitz.github.io/sap-addon/icons/icon48.png" height="20px" /></a>
 <!-- SHIELD IO BADGES INSTALL START -->
-<a href="https://nikolockenvitz.github.io/sap-addon/xpi/sap_addon-1.23.3.xpi">
-<img src="https://img.shields.io/badge/firefox-v1.23.3-FF7139?logo=firefox-browser" alt="Install for Firefox" /></a>
+<img src="https://img.shields.io/badge/firefox-v1.23.3-FF7139?logo=firefox-browser" alt="Not available for Safari" /></a>
 <!-- SHIELD IO BADGES INSTALL END -->
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
 <img src="https://img.shields.io/badge/chrome-v1.23.3-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
@@ -51,7 +50,7 @@ Updates are handled automatically.
 
 * **Auto Login** on GitHub, Sharepoint, Stack Overflow, Mural, and some other pages
 * Showing people's **full names on GitHub** instead of user IDs
-* Find a full list of features with detailed descriptions <a href="https://github.com/nikolockenvitz/sap-addon/tree/main/docs#features">here</a>
+* Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
 
 All features are enabled by default but can be disabled in the settings popup.
 Click on the addon's icon in your browser's toolbar to open the popup (see screenshots below).
@@ -63,4 +62,3 @@ After successful installation, you may want to configure everything and grant th
 
 Contributions of any kind are highly appreciated - code, improvement ideas, bug reports, or feature requests.
 If you want to help, just contact me or open a pull request.
-Check out <a href="https://github.com/nikolockenvitz/sap-addon/blob/main/CONTRIBUTING.md#readme">CONTRIBUTING.md</a> for more details and local setup instructions.
