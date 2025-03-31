@@ -56,7 +56,6 @@ Updates are handled automatically.
 All features are enabled by default but can be disabled in the settings popup.
 Click on the addon's icon in your browser's toolbar to open the popup (see screenshots below).
 After successful installation, you may want to configure everything and grant the optional permissions.
-Learn more about this <a href="https://github.com/nikolockenvitz/sap-addon/tree/main/docs#optional-permissions">here</a>.
 
 <img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
 
