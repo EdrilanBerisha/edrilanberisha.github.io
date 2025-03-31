@@ -19,18 +19,16 @@
     ·
     <a href="#contribute">Contribute</a>
     ·
-    <a href="https://github.com/nikolockenvitz/sap-addon/tree/main/docs#readme">Documentation</a>
+    <a href="<<<<<<<broke">Documentation</a>
   </p>
 </div>
 
 <h3 align="center">Installation</h3>
 
 <p align="center">
-<a href="https://nikolockenvitz.github.io/sap-addon/">
-<img src="https://nikolockenvitz.github.io/sap-addon/icons/icon48.png" height="20px" /></a>
-<!-- SHIELD IO BADGES INSTALL START -->
-<img src="https://img.shields.io/badge/firefox-v1.23.3-FF7139?logo=firefox-browser" alt="Not available for Safari" /></a>
-<!-- SHIELD IO BADGES INSTALL END -->
+<a href="https://broke<<<<<</sap-addon/">
+<img src="https:/<broke<<<<<.github.io/sap-addon/icons/icon48.png" height="20px" /></a>
+<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Safari" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
 <img src="https://img.shields.io/badge/chrome-v1.23.3-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
