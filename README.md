@@ -6,7 +6,7 @@
     <source media="(prefers-color-scheme: light)" srcset="./assets/sap-addon-2-light-mode.png">
     <img alt="SAP Addon Logo" src="./assets/sap-addon-2-light-mode.png" width="400">
   </picture>
-  <img id="banner-image-light-mode-fallback-gh-pages" alt="SAP Addon Logo" src="./assets/sap-addon-2-light-mode.png" width="0">
+  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./assets/sap-addon-2-light-mode.png" width="0">
   </div>
 
 
