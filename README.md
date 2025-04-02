@@ -5,7 +5,7 @@
   </div>
 
 
-  <h3 align="center" style="margin-top: 0;">Fiori Launchpad for SAP S/4HANA</h3>
+  <h3 align="center" style="margin-top: 0;">Browser Extension for SAP S/4HANA</h3>
 
   <p align="center">
     Chrome/Edge Extension for SAP S/4HANA systems
