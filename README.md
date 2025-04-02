@@ -10,11 +10,15 @@
   <p align="center">
     Chrome/Edge Extension for SAP S/4HANA systems
     <br />
+    <a href="#about the project">About The Project</a>
+    .
     <a href="#features">Features</a>
     ·
     <a href="#contribute">Contribute</a>
     ·
-    <a href="<<<<<<<broke">Documentation</a>
+    <a href="#built with">Built With</a>
+    ·
+    <a href="#contact">Contact</a>
   </p>
 </div>
 
