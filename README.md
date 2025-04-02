@@ -76,7 +76,7 @@ If you want to help, just contact me or open a pull request.
 
 ## Contact
 
-Edrilan Berisha - fiorilaunchpad@gmx.de
+Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 [LinkedIn](https://www.linkedin.com/in/edrilan-berisha/)
 
 
