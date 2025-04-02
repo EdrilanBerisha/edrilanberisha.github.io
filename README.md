@@ -1,19 +1,15 @@
 <div align="center">
 
   <div id="banner-image-container" >
-  <picture >
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/sap-addon-2-dark-mode.png">
-    <source media="(prefers-color-scheme: light)" srcset="./assets/sap-addon-2-light-mode.png">
-    <img alt="Fiori Launchpad Extension for SAP S/4HANA" src="./assets/sap-addon-2-light-mode.png" width="400">
-  </picture>
-  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./assets/sap-addon-2-light-mode.png" width="0">
+     <img src="imagesReadMe/introPic.png" alt="Logo">
+  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
   </div>
 
 
   <h3 align="center" style="margin-top: 0;">Fiori Launchpad for SAP S/4HANA</h3>
 
   <p align="center">
-    Firefox/Chrome Extension for SAP internal webpages
+    Chrome/Edge Extension for SAP S/4HANA systems
     <br />
     <a href="#features">Features</a>
     ·
@@ -28,7 +24,6 @@
 <p align="center">
 <a href="https://edrilanberisha.github.io/">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/sap48.png" height="20px" /></a>
-<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Safari" />
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
 <img src="https://img.shields.io/badge/chrome-v1.23.3-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
@@ -37,6 +32,7 @@
 <img src="https://img.shields.io/badge/edge-v1.23.3-0078D7?logo=microsoft-edge" alt="Install for Edge" /></a>
 <a href="https://www.mozilla.org/en-US/firefox/new/">
 <img src="https://img.shields.io/badge/safari-not_available-000000?logo=safari" alt="Not available for Safari" /></a>
+<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Firefox" />
 <br />
 Install by clicking on the respective badge.
 Updates are handled automatically.
@@ -59,6 +55,8 @@ Here's why:
 * Showing people's **full names on GitHub** instead of user IDs
 * Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
 
+<img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
+
 ### Built With
 
 * [![nodejs][nodejs]][nodejs-url]
@@ -66,7 +64,7 @@ Here's why:
 * [![Webpack][webpack]][webpack-url]
 * [![Puppeteer][puppeteer]][puppeteer-url]
 
-<img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
+
 
 ## Contribute
 
@@ -88,3 +86,4 @@ Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 [webpack-url]: https://webpack.js.org/
 [nodejs]: imagesReadMe/nodejslogo.png
 [nodejs-url]: https://nodejs.org/en/
+[introPicture]: imagesReadMe/introPic.png
