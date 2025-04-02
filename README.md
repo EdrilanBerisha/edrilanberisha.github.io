@@ -67,8 +67,8 @@ Here's why:
 
 ## Contribute
 
-Contributions of any kind are highly appreciated - code, improvement ideas, bug reports, or feature requests.
-If you want to help, just contact me or open a pull request.
+Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
+If you want to help, just contact me or open a GitHub issue.
 
 
 ## Contact
