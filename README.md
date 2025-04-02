@@ -10,11 +10,13 @@
   <p align="center">
     Chrome/Edge Extension for SAP S/4HANA systems
     <br />
+    <a href="#about the project">About The Project</a>
+    .
     <a href="#features">Features</a>
     ·
-    <a href="#contribute">Contribute</a>
+    <a href="#built with">Built With</a>
     ·
-    <a href="<<<<<<<broke">Documentation</a>
+    <a href="#contact">Contact</a>
   </p>
 </div>
 
@@ -45,35 +47,38 @@ This Google Chrome/Microsoft Edge extension aims to improve your life as end-use
 
 Here's why:
 * Internal test systems or customer systems have performance issues
-* Launchpad can be broken in internal test systems
+* Launchpad can be broken in your S/4 System
 * Initial loading of the launchpad takes long
+* Search bar takes forever
 
 ## Features
 
-* **Auto Login** on GitHub, Sharepoint, Stack Overflow, Mural, and some other pages
-* Showing people's **full names on GitHub** instead of user IDs
-* Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
+* The extension offers two components:
+    * The Popup (which opens when you left click on the logo)
+    * The Options page (which opens when you right lick on the logo and select "Options")
+
+### Popup
+
+### Options
 
 <img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
 
 ### Built With
 
-* [![nodejs][nodejs]][nodejs-url]
-* [![UI5][ui5-wc]][ui5wc-url]
-* [![Webpack][webpack]][webpack-url]
-* [![Puppeteer][puppeteer]][puppeteer-url]
-
-
-
-## Contribute
-
-Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
-If you want to help, just contact me or open a GitHub issue.
+[![nodejs][nodejs]][nodejs-url] 
+[![UI5][ui5-wc]][ui5wc-url]
+[![Webpack][webpack]][webpack-url]
+[![Puppeteer][puppeteer]][puppeteer-url]
 
 
 ## Contact
 
 Fiori Launchpad Extension is maintained by Edrilan Berisha.
+
+Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
+If you want to help, just contact me or open a GitHub issue.
+
+
 <br/>
 <a href="https://www.linkedin.com/in/edrilan-berisha//">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
