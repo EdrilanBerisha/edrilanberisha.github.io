@@ -1,7 +1,7 @@
 <div align="center">
 
   <div id="banner-image-container" >
-     <img src="imagesReadMe/introPic.png" alt="Logo">
+     <img src="imagesReadMe/introPic.png" alt="Logo" width="400">
   <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
   </div>
 
