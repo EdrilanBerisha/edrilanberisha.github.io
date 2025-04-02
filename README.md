@@ -1,7 +1,7 @@
 <div align="center">
 
   <div id="banner-image-container" >
-     <img src="imagesReadMe/introPic.png" alt="Fiori Launchpad Extension" width="400">
+     <img src="imagesReadMe/introPic.png" alt="Fiori Launchpad Extension" width="300">
   </div>
 
 
