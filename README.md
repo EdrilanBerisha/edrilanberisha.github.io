@@ -87,4 +87,5 @@ Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 [nodejs]: imagesReadMe/nodejslogo.png
 [nodejs-url]: https://nodejs.org/en/
 [introPicture]: imagesReadMe/introPic.png
-[linkedIn]: 
+[gitHub]: imagesReadMe/githubIcon.png
+[linkedIn]:linkedInIcon.webp
