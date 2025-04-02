@@ -1,12 +1,11 @@
 <div align="center">
 
   <div id="banner-image-container" >
-     <img src="imagesReadMe/introPic.png" alt="Logo">
-  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
+     <img src="imagesReadMe/introPic.png" alt="Fiori Launchpad Extension" width="300">
   </div>
 
 
-  <h3 align="center" style="margin-top: 0;">Fiori Launchpad for SAP S/4HANA</h3>
+  <h3 align="center" style="margin-top: 0;">Browser Extension for SAP S/4HANA</h3>
 
   <p align="center">
     Chrome/Edge Extension for SAP S/4HANA systems
