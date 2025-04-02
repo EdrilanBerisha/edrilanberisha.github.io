@@ -58,10 +58,10 @@ Here's why:
 
 ### Built With
 
-* [![nodejs][nodejs]][nodejs-url]
-* [![UI5][ui5-wc]][ui5wc-url]
-* [![Webpack][webpack]][webpack-url]
-* [![Puppeteer][puppeteer]][puppeteer-url]
+[![nodejs][nodejs]][nodejs-url] 
+[![UI5][ui5-wc]][ui5wc-url]
+[![Webpack][webpack]][webpack-url]
+[![Puppeteer][puppeteer]][puppeteer-url]
 
 
 
