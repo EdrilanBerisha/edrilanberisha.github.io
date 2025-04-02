@@ -72,3 +72,14 @@ Here's why:
 
 Contributions of any kind are highly appreciated - code, improvement ideas, bug reports, or feature requests.
 If you want to help, just contact me or open a pull request.
+
+
+
+[ui5-wc]: imagesReadme/ui5logo.png
+[ui5wc-url]: https://sap.github.io/ui5-webcomponents/
+[puppeteer]: imagesReadme/puppeteerlogo.png
+[puppeteer-url]: https://github.com/puppeteer/puppeteer
+[webpack]: imagesReadme/webpacklogo.png
+[webpack-url]: https://webpack.js.org/
+[nodejs]: imagesReadme/nodejslogo.png
+[nodejs-url]: https://nodejs.org/en/
