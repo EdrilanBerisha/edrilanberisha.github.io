@@ -44,6 +44,15 @@ Updates are handled automatically.
 
 <br />
 
+## About The Project
+
+This Google Chrome/Microsoft Edge extension aims to improve your life as end-user, developer, consultant or tester, who is working with different fiori applications on different internal or customer systems. You'll save a lot of time in the long-term.
+
+Here's why:
+* Internal test systems or customer systems have performance issues
+* Launchpad can be broken in internal test systems
+* Initial loading of the launchpad takes long
+
 ## Features
 
 * **Auto Login** on GitHub, Sharepoint, Stack Overflow, Mural, and some other pages
