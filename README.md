@@ -4,7 +4,7 @@
   <picture >
     <source media="(prefers-color-scheme: dark)" srcset="./assets/sap-addon-2-dark-mode.png">
     <source media="(prefers-color-scheme: light)" srcset="./assets/sap-addon-2-light-mode.png">
-    <img alt="SAP Addon Logo" src="./assets/sap-addon-2-light-mode.png" width="400">
+    <img alt="Fiori Launchpad Extension for SAP S/4HANA" src="./assets/sap-addon-2-light-mode.png" width="400">
   </picture>
   <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./assets/sap-addon-2-light-mode.png" width="0">
   </div>
@@ -28,7 +28,7 @@
 <p align="center">
 <a href="https://edrilanberisha.github.io/">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/sap48.png" height="20px" /></a>
-<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Safari" /></a>
+<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Safari" />
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
 <img src="https://img.shields.io/badge/chrome-v1.23.3-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
@@ -59,9 +59,12 @@ Here's why:
 * Showing people's **full names on GitHub** instead of user IDs
 * Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
 
-All features are enabled by default but can be disabled in the settings popup.
-Click on the addon's icon in your browser's toolbar to open the popup (see screenshots below).
-After successful installation, you may want to configure everything and grant the optional permissions.
+### Built With
+
+* [![nodejs][nodejs]][nodejs-url]
+* [![UI5][ui5-wc]][ui5wc-url]
+* [![Webpack][webpack]][webpack-url]
+* [![Puppeteer][puppeteer]][puppeteer-url]
 
 <img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
 
@@ -69,3 +72,19 @@ After successful installation, you may want to configure everything and grant th
 
 Contributions of any kind are highly appreciated - code, improvement ideas, bug reports, or feature requests.
 If you want to help, just contact me or open a pull request.
+
+
+## Contact
+
+Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
+[LinkedIn](https://www.linkedin.com/in/edrilan-berisha/)
+
+
+[ui5-wc]: imagesReadMe/ui5logo.png
+[ui5wc-url]: https://sap.github.io/ui5-webcomponents/
+[puppeteer]: imagesReadMe/puppeteerlogo.png
+[puppeteer-url]: https://github.com/puppeteer/puppeteer
+[webpack]: imagesReadMe/webpacklogo.png
+[webpack-url]: https://webpack.js.org/
+[nodejs]: imagesReadMe/nodejslogo.png
+[nodejs-url]: https://nodejs.org/en/
