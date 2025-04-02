@@ -49,8 +49,9 @@ This Google Chrome/Microsoft Edge extension aims to improve your life as end-use
 
 Here's why:
 * Internal test systems or customer systems have performance issues
-* Launchpad can be broken in internal test systems
+* Launchpad can be broken in your S/4 System
 * Initial loading of the launchpad takes long
+* Search bar takes forever
 
 ## Features
 
