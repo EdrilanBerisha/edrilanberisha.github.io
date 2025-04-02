@@ -67,14 +67,21 @@ Here's why:
 
 ## Contribute
 
-Contributions of any kind are highly appreciated - code, improvement ideas, bug reports, or feature requests.
-If you want to help, just contact me or open a pull request.
+Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
+If you want to help, just contact me or open a GitHub issue.
 
 
 ## Contact
 
+Fiori Launchpad Extension is maintained by Edrilan Berisha.
+<br/>
+<a href="https://www.linkedin.com/in/edrilan-berisha//">
+<img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
+<a href="https://github.com/EdrilanBerisha">
+<img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/githubIcon.png" height="30px" /></a>
+<br/>
 Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
-[LinkedIn](https://www.linkedin.com/in/edrilan-berisha/)
+
 
 
 [ui5-wc]: imagesReadMe/ui5logo.png
@@ -86,3 +93,6 @@ Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 [nodejs]: imagesReadMe/nodejslogo.png
 [nodejs-url]: https://nodejs.org/en/
 [introPicture]: imagesReadMe/introPic.png
+[gitHub]: imagesReadMe/githubIcon.png
+[linkedIn]: imagesReadMe/linkedInIcon.webp
+[linkedIn-url]: https://www.linkedin.com/in/edrilan-berisha/
