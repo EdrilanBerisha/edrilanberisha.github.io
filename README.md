@@ -74,6 +74,8 @@ If you want to help, just contact me or open a pull request.
 ## Contact
 
 Fiori Launchpad Extension is maintained by Edrilan Berisha.
+<br/>
+<a href="https://www.linkedin.com/in/edrilan-berisha//">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
 Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 
