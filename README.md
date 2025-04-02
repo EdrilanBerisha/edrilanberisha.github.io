@@ -1,10 +1,7 @@
 <div align="center">
 
   <div id="banner-image-container" >
-  <picture >
-    <source media="(prefers-color-scheme: light)" srcset="./imagesReadMe/introPic.png">
-    <source media="(prefers-color-scheme: dark)" srcset="./imagesReadMe/introPic.png">
-  </picture>
+     <img src="imagesReadMe/introPic.png" alt="Logo">
   <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
   </div>
 
