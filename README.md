@@ -58,8 +58,10 @@ Here's why:
 * The extension offers two components:
     * The Popup (which opens when you left click on the logo)
     * The Options page (which opens when you right lick on the logo and select "Options")
-* Showing people's **full names on GitHub** instead of user IDs
-* Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
+
+### Popup
+
+### Options
 
 <img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
 
