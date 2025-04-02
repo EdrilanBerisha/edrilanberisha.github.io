@@ -14,8 +14,6 @@
     .
     <a href="#features">Features</a>
     ·
-    <a href="#contribute">Contribute</a>
-    ·
     <a href="#built with">Built With</a>
     ·
     <a href="#contact">Contact</a>
@@ -73,16 +71,14 @@ Here's why:
 [![Puppeteer][puppeteer]][puppeteer-url]
 
 
+## Contact
 
-## Contribute
+Fiori Launchpad Extension is maintained by Edrilan Berisha.
 
 Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
 If you want to help, just contact me or open a GitHub issue.
 
 
-## Contact
-
-Fiori Launchpad Extension is maintained by Edrilan Berisha.
 <br/>
 <a href="https://www.linkedin.com/in/edrilan-berisha//">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
