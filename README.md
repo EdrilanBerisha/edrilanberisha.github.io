@@ -5,6 +5,8 @@
     <source media="(prefers-color-scheme: dark)" srcset="./assets/sap-addon-2-dark-mode.png">
     <source media="(prefers-color-scheme: light)" srcset="./assets/sap-addon-2-light-mode.png">
     [introPicture]
+    <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/introPic.png" alt="Install for Chrome" />
+    
   </picture>
   <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
   </div>
