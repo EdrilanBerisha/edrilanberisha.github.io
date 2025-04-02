@@ -4,9 +4,9 @@
   <picture >
     <source media="(prefers-color-scheme: dark)" srcset="./assets/sap-addon-2-dark-mode.png">
     <source media="(prefers-color-scheme: light)" srcset="./assets/sap-addon-2-light-mode.png">
-    <img alt="Fiori Launchpad Extension for SAP S/4HANA" src="./assets/sap-addon-2-light-mode.png" width="400">
+    <img alt="Fiori Launchpad Extension for SAP S/4HANA" src="./imagesReadMe/introPic.png" width="400">
   </picture>
-  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./assets/sap-addon-2-light-mode.png" width="0">
+  <img id="banner-image-light-mode-fallback-gh-pages" alt="Fiori Launchpad Extension" src="./i" width="0">
   </div>
 
 
@@ -90,3 +90,4 @@ Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 [webpack-url]: https://webpack.js.org/
 [nodejs]: imagesReadMe/nodejslogo.png
 [nodejs-url]: https://nodejs.org/en/
+[introPicture]: imagesReadMe/introPic.png
