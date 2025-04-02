@@ -74,6 +74,11 @@ Contributions of any kind are highly appreciated - code, improvement ideas, bug 
 If you want to help, just contact me or open a pull request.
 
 
+## Contact
+
+Edrilan Berisha - fiorilaunchpad@gmx.de
+[LinkedIn](https://www.linkedin.com/in/edrilan-berisha/)
+
 
 [ui5-wc]: imagesReadMe/ui5logo.png
 [ui5wc-url]: https://sap.github.io/ui5-webcomponents/
