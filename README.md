@@ -55,7 +55,9 @@ Here's why:
 
 ## Features
 
-* **Auto Login** on GitHub, Sharepoint, Stack Overflow, Mural, and some other pages
+* The extension offers two components:
+    * The Popup (which opens when you left click on the logo)
+    * The Options page (which opens when you right lick on the logo and select "Options")
 * Showing people's **full names on GitHub** instead of user IDs
 * Find a full list of features with detailed descriptions <a href="<insertLink>">here</a>
 
