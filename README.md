@@ -14,6 +14,10 @@
     .
     <a href="#features">Features</a>
     ·
+    <a href="#popup">Popup</a>
+    ·
+    <a href="#options">Options</a>
+    ·
     <a href="#built with">Built With</a>
     ·
     <a href="#contact">Contact</a>
@@ -61,7 +65,7 @@ Here's why:
 
 ### Options
 
-<img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
+
 
 ### Built With
 
@@ -80,7 +84,7 @@ If you want to help, just contact me or open a GitHub issue.
 
 
 <br/>
-<a href="https://www.linkedin.com/in/edrilan-berisha//">
+<a href="https://www.linkedin.com/in/edrilan-berisha/">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
 <a href="https://github.com/EdrilanBerisha">
 <img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/githubIcon.png" height="30px" /></a>
