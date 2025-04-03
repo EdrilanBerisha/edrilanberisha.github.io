@@ -61,7 +61,7 @@ Here's why:
 
 ### Options
 
-<img src="docs/screenshot-1.21-settings-popup.png" width="320" alt="Screenshot of Settings Popup" title="Screenshot of Settings Popup" /> <img src="docs/screenshot-1.21-settings-popup-configuration.png" width="320" alt="Screenshot of Configuration in Popup" title="Screenshot of Configuration in Popup" />
+
 
 ### Built With
 
