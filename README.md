@@ -16,6 +16,8 @@
     ·
     <a href="#popup">Popup</a>
     ·
+    <a href="#options">Options</a>
+    ·
     <a href="#built with">Built With</a>
     ·
     <a href="#contact">Contact</a>
