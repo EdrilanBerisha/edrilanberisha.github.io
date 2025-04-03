@@ -85,9 +85,9 @@ If you want to help, just contact me or open a GitHub issue.
 
 <br/>
 <a href="https://www.linkedin.com/in/edrilan-berisha/">
-<img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/linkedInIcon.webp" height="40px" /></a>
+<img src="imagesReadMe/linkedInIcon.webp" height="40px" /></a>
 <a href="https://github.com/EdrilanBerisha">
-<img src="https://github.com/EdrilanBerisha/edrilanberisha.github.io/blob/main/imagesReadMe/githubIcon.png" height="30px" /></a>
+<img src="imagesReadMe/githubIcon.png" height="30px" /></a>
 <br/>
 Edrilan Berisha - fiorilaunchpad@gmx.de <br/>
 
