@@ -14,6 +14,8 @@
     .
     <a href="#features">Features</a>
     ·
+    <a href="#popup">Popup</a>
+    ·
     <a href="#built with">Built With</a>
     ·
     <a href="#contact">Contact</a>
