@@ -67,7 +67,7 @@ By clicking on the icon the popup opens and offers the possibility to add any Fi
 
 <img src="imagesReadMe/popup1.jpg"/>
 <img src="imagesReadMe/popup2.jpg"/>
-
+<img src="imagesReadMe/popup3.jpg"/>
 
 ### Options
 
