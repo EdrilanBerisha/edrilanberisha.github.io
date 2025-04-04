@@ -83,6 +83,16 @@ Now you can easily combine both, your favorite S/4HANA System and your favorite 
 
 ### Options
 
+By right clicking on the extension icon and navigating to the Options page. You can configure your extension and maintain and mange your favorite lists, but also share your lists with other colleagues or clients.
+
+<img src="imagesReadMe/options1.jpg"/>
+
+<img src="imagesReadMe/options2.jpg"/>
+
+<img src="imagesReadMe/options3.jpg"/>
+
+<img src="imagesReadMe/options4.jpg"/>
+
 
 
 ### Built With
