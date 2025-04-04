@@ -73,6 +73,14 @@ Newly added S/4HANA Systems will be visible in the drop down list on your popup.
 
 <img src="imagesReadMe/popup5.jpg"/>
 
+If you add a Fiori App to your favorite list, it will show up in your popup as well. This is basically a "dynamic" bookmark, you can open this fiori app, in any S/4HANA System.
+
+<img src="imagesReadMe/popup6.jpg"/>
+
+Now you can easily combine both, your favorite S/4HANA System and your favorite Fiori Apps. If you have "Current System" selected. It will navigate in the System, you currently have open in your browser.
+
+<img src="imagesReadMe/popup7.jpg"/>
+
 ### Options
 
 
