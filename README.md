@@ -69,6 +69,10 @@ By clicking on the icon the popup opens and offers the possibility to add any Fi
 <img src="imagesReadMe/popup2.jpg"/>
 <img src="imagesReadMe/popup3.jpg"/>
 
+Newly added S/4HANA Systems will be visible in the drop down list on your popup. 
+
+<img src="imagesReadMe/popup5.jpg"/>
+
 ### Options
 
 
