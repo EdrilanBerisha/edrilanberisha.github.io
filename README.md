@@ -55,6 +55,8 @@ Here's why:
 * Initial loading of the launchpad takes long
 * Search bar takes forever
 
+Short YouTube clip explaining the functionaility in less than 3 minutes 
+
 ## Features
 
 * The extension offers two components:
