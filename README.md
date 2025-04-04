@@ -56,6 +56,8 @@ Here's why:
 * Search bar takes forever
 
 Short YouTube clip explaining the functionaility in less than 3 minutes 
+<a href="https://www.youtube.com/watch?v=Qu012cdXyFc/">
+<img src="imagesReadMe/youtubeLogo.png" height="50px" /></a>
 
 ## Features
 
