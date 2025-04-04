@@ -102,6 +102,9 @@ On the bottom right you have an upload and download functionality. With this fea
 
 <img src="imagesReadMe/options4.jpg"/>
 
+By the way one small hidden gem: if you want to use the extension also in your incognito window, you have to enable this in the extension settings of your browser. 
+
+Click on the three dots, then on Settings. 
 
 ### Built With
 
