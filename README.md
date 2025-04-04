@@ -87,6 +87,11 @@ By right clicking on the extension icon and navigating to the Options page. You 
 
 <img src="imagesReadMe/options1.jpg"/>
 
+On the top left corner we have three buttons (segmented buttons). With the labels 'Current', 'Tab', 'Window'. These are the same settings you do also see on the popover, which opens from the extension logo. With this setting you define how you wish, to open the fiori app. 
+* 'Current' means it stays in the current browser and tab, and will navigate to it.
+* 'Tab' means it will open the new site in a new tab.
+* 'Window' means accordingly, it will open in a new browser window.
+
 <img src="imagesReadMe/options2.jpg"/>
 
 <img src="imagesReadMe/options3.jpg"/>
