@@ -63,6 +63,10 @@ Here's why:
 
 ### Popup
 
+By clicking on the icon the popup opens and offers the possibility to add any Fiori App or S/4HANA System to your favorite list.
+
+<img src="imagesReadMe/popup1.jpg"/>
+
 ### Options
 
 
