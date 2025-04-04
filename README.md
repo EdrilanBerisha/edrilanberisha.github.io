@@ -106,6 +106,8 @@ By the way one small hidden gem: if you want to use the extension also in your i
 
 Click on the three dots, then on Settings. 
 
+<img src="imagesReadMe/incognito.png"/>
+
 ### Built With
 
 [![nodejs][nodejs]][nodejs-url] 
