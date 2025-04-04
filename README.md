@@ -94,10 +94,13 @@ On the top left corner we have three buttons (segmented buttons). With the label
 
 <img src="imagesReadMe/options2.jpg"/>
 
+The system, which is always pre-selected in the popover in your drop down list. Can be set here as well. Just pick the system, you use the most.
+
 <img src="imagesReadMe/options3.jpg"/>
 
-<img src="imagesReadMe/options4.jpg"/>
+On the bottom right you have an upload and download functionality. With this feature you can share your lists to other colleagues or clients or keep them as a backup, if you switch your computer. Keep in mind you have to pre-select the correct table tab. You can't upload fiori apps into your extension, when the S/4 Systems tab is selected and vice versa. A bit below the three segmented buttons for the browser settings. You have two table tabs. One with 'Fiori Apps' and one with 'S/4 Systems' as label. With this you can change the view on your favorite lists. 
 
+<img src="imagesReadMe/options4.jpg"/>
 
 
 ### Built With
