@@ -127,7 +127,7 @@ Now click on the switch button to enable the extension also for the incognito mo
 
 For any other questions you can either open a GitHub issue or comment on my [blog post](https://community.sap.com/t5/technology-blogs-by-sap/free-browser-extension-for-sap-s-4hana-for-increased-productivity-and/ba-p/13801414).
 
-### Built With
+## Built With
 
 [![nodejs][nodejs]][nodejs-url] 
 [![UI5][ui5-wc]][ui5wc-url]
