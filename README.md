@@ -10,7 +10,7 @@
   <p align="center">
     Chrome/Edge Extension for SAP S/4HANA systems
     <br />
-    <a href="#about the project">About The Project</a>
+    <a href="#project">Project</a>
     .
     <a href="#features">Features</a>
     ·
@@ -18,7 +18,7 @@
     ·
     <a href="#options">Options</a>
     ·
-    <a href="#built with">Built With</a>
+    <a href="#technologies">Technologies</a>
     ·
     <a href="#contact">Contact</a>
   </p>
@@ -45,7 +45,7 @@ Updates are handled automatically.
 
 <br />
 
-## About The Project
+## Project
 
 This Google Chrome/Microsoft Edge extension aims to improve your life as end-user, developer, consultant or tester, who is working with different fiori applications on different internal or customer systems. You'll save a lot of time in the long-term.
 
@@ -127,7 +127,7 @@ Now click on the switch button to enable the extension also for the incognito mo
 
 For any other questions you can either open a GitHub issue or comment on my [blog post](https://community.sap.com/t5/technology-blogs-by-sap/free-browser-extension-for-sap-s-4hana-for-increased-productivity-and/ba-p/13801414).
 
-### Built With
+## Technologies
 
 [![nodejs][nodejs]][nodejs-url] 
 [![UI5][ui5-wc]][ui5wc-url]
