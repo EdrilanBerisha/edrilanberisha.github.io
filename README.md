@@ -11,7 +11,7 @@
     Chrome/Edge Extension for SAP S/4HANA systems
     <br />
     <a href="#project">Project</a>
-    .
+    ·
     <a href="#features">Features</a>
     ·
     <a href="#popup">Popup</a>
