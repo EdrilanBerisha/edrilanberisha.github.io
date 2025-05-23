@@ -8,7 +8,7 @@
   <h3 align="center" style="margin-top: 0;">Browser Extension for SAP S/4HANA</h3>
 
   <p align="center">
-    Chrome/Edge Extension for SAP S/4HANA systems
+    Browser Extension for SAP S/4HANA systems and Fiori Applications
     <br />
     <a href="#project">Project</a>
     ·
@@ -47,7 +47,7 @@ Updates are handled automatically.
 
 ## Project
 
-This Google Chrome/Microsoft Edge extension aims to improve your life as end-user, developer, consultant or tester, who is working with different fiori applications on different internal or customer systems. You'll save a lot of time in the long-term.
+This browser extension aims to improve your life as end-user, developer, consultant or tester, who is working with different fiori applications on different internal or customer systems. You'll save a lot of time in the long-term.
 
 Here's why:
 * Internal test systems or customer systems have performance issues
