@@ -5,10 +5,10 @@
   </div>
 
 
-  <h3 align="center" style="margin-top: 0;">Browser Extension for SAP S/4HANA</h3>
+  <h3 align="center" style="margin-top: 0;">Browser Extension for SAP Cloud ERP</h3>
 
   <p align="center">
-    Browser Extension for SAP S/4HANA systems and Fiori Applications
+    Browser Extension for SAP Cloud ERP systems and Fiori Applications
     <br />
     <a href="#project">Project</a>
     ·
@@ -51,7 +51,7 @@ This browser extension aims to improve your life as end-user, developer, consult
 
 Here's why:
 * Internal test systems or customer systems have performance issues
-* Launchpad can be broken in your S/4 System
+* Launchpad can be broken in your SAP Cloud ERP (a.k.a S/4HANA) System
 * Initial loading of the launchpad takes long
 * Search bar takes forever
 
@@ -68,21 +68,21 @@ Short YouTube clip explaining the functionaility in less than 3 minutes
 
 ### Popup
 
-By clicking on the icon the popup opens and offers the possibility to add any Fiori App or S/4HANA System to your favorite list.
+By clicking on the icon the popup opens and offers the possibility to add any Fiori App or SAP Cloud ERP System to your favorite list.
 
 <img src="imagesReadMe/popup1.jpg"/>
 <img src="imagesReadMe/popup2.jpg"/>
 <img src="imagesReadMe/popup3.jpg"/>
 
-Newly added S/4HANA Systems will be visible in the drop down list on your popup. 
+Newly added SAP Cloud ERP Systems will be visible in the drop down list on your popup. 
 
 <img src="imagesReadMe/popup5.jpg"/>
 
-If you add a Fiori App to your favorite list, it will show up in your popup as well. This is basically a "dynamic" bookmark, you can open this fiori app, in any S/4HANA System.
+If you add a Fiori App to your favorite list, it will show up in your popup as well. This is basically a "dynamic" bookmark, you can open this fiori app, in any SAP Cloud ERP System.
 
 <img src="imagesReadMe/popup6.jpg"/>
 
-Now you can easily combine both, your favorite S/4HANA System and your favorite Fiori Apps. If you have "Current System" selected. It will navigate in the System, you currently have open in your browser.
+Now you can easily combine both, your favorite SAP Cloud ERP System and your favorite Fiori Apps. If you have "Current System" selected. It will navigate in the System, you currently have open in your browser.
 
 <img src="imagesReadMe/popup7.jpg"/>
 
