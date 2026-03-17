@@ -5,7 +5,7 @@
   </div>
 
 
-  <h3 align="center" style="margin-top: 0;">Fiori Browser Extension for SAP Cloud ERP</h3>
+  <h3 align="center" style="margin-top: 0;">SAP Cloud ERP Launchpad</h3>
 
   <p align="center">
     Browser Extension for SAP Cloud ERP systems and Fiori Applications
