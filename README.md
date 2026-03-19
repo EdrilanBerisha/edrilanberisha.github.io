@@ -137,7 +137,7 @@ For any other questions you can either open a GitHub issue or comment on my [blo
 
 ## Contact
 
-Fiori Launchpad Extension is maintained by Edrilan Berisha.
+SAP Cloud ERP Launchpad Extension is maintained by Edrilan Berisha.
 
 Contributions of any kind are highly appreciated - improvement ideas, bug reports, or feature requests.
 If you want to help, just contact me or open a GitHub issue.
