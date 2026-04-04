@@ -36,8 +36,8 @@
 <a href="https://microsoftedge.microsoft.com/addons/detail/fiori-launchpad-for-sap-c/kfbfaeokdhfbeikhofemebocbbfcmpcb">
 <img src="https://img.shields.io/badge/edge-v2.3.0-0078D7?logo=microsoft-edge" alt="Install for Edge" /></a>
 <img src="https://img.shields.io/badge/safari-not_available-000000?logo=safari" alt="Not available for Safari" /></a>
-<img src="https://img.shields.io/badge/firefox-not_available-000000?logo=firefox" alt="Not available for Firefox" />
-<a href="[https://www.mozilla.org/en-US/firefox/new/](https://addons.mozilla.org/de/firefox/addon/sap-cloud-erp-launchpad/)">
+<img src="https://img.shields.io/badge/firefox-v2.3.0-000000?logo=firefox" alt="Not available for Firefox" /></a>
+<a href="[https://www.mozilla.org/en-US/firefox/new/](https://addons.mozilla.org/de/firefox/addon/sap-cloud-erp-launchpad/)"></a>
 <br />
 Install by clicking on the respective badge.
 Updates are handled automatically.
