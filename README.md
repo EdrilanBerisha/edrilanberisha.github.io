@@ -30,13 +30,13 @@
 <a href="https://edrilanberisha.github.io/">
 <img src="imagesReadMe/sap48.png" height="20px" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
-<img src="https://img.shields.io/badge/chrome-v2.3.0-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
+<img src="https://img.shields.io/badge/chrome-v2.4.0-4285F4?logo=google-chrome" alt="Install for Chrome" /></a>
 <a href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh?utm_source=item-share-cb">
-<img src="https://img.shields.io/badge/brave-v2.3.0-FB542B?logo=brave" alt="Install for Brave" /></a>
+<img src="https://img.shields.io/badge/brave-v2.4.0-FB542B?logo=brave" alt="Install for Brave" /></a>
 <a href="https://microsoftedge.microsoft.com/addons/detail/fiori-launchpad-for-sap-c/kfbfaeokdhfbeikhofemebocbbfcmpcb">
-<img src="https://img.shields.io/badge/edge-v2.3.0-0078D7?logo=microsoft-edge" alt="Install for Edge" /></a>
+<img src="https://img.shields.io/badge/edge-v2.4.0-0078D7?logo=microsoft-edge" alt="Install for Edge" /></a>
 <a href="https://addons.mozilla.org/de/firefox/addon/sap-cloud-erp-launchpad/">
-<img src="https://img.shields.io/badge/firefox-v2.3.0-FB542B?logo=firefox" alt="Not available for Firefox" /></a>
+<img src="https://img.shields.io/badge/firefox-v2.4.0-FB542B?logo=firefox" alt="Not available for Firefox" /></a>
 <img src="https://img.shields.io/badge/safari-not_available-000000?logo=safari" alt="Not available for Safari" />
 <br />
 Install by clicking on the respective badge.
