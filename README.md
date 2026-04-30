@@ -1,7 +1,7 @@
 <div align="center">
 
   <div id="banner-image-container" >
-     <img src="imagesReadMe/introPic.png" alt="SAP Cloud ERP Launchpad" width="300">
+     <img src="imagesReadMe/introPicWithFireFox.png" alt="SAP Cloud ERP Launchpad" width="300">
   </div>
 
 
