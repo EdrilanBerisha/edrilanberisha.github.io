@@ -107,7 +107,14 @@
       text-align: center;
       padding: 5rem 2rem 4rem;
       position: relative;
+      overflow: visible;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
       overflow: hidden;
+      pointer-events: none;
     }
     .hero::before {
       content: '';
@@ -140,7 +147,7 @@
       line-height: 1.7;
     }
     .hero__subtitle strong { color: #fff; }
-    .hero__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; overflow: visible; }
     .hero__buttons .btn--primary { background: #0070f3; border-color: #0070f3; font-size: 1rem; padding: 0.7rem 1.8rem; }
     .hero__buttons .btn--primary:hover { background: #005bb5; border-color: #005bb5; }
     .hero__buttons .btn--secondary {
@@ -365,6 +372,45 @@
     .contact-card__email { margin-top: 1.5rem; font-size: 0.875rem; color: rgba(255,255,255,0.55); }
     .contact-card__email a { color: rgba(255,255,255,0.8); text-decoration: underline; }
 
+    /* ========== Feature Dropdown ========== */
+    .feature-dropdown-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+    .feature-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      overflow: hidden;
+      min-width: 160px;
+      z-index: 200;
+    }
+    .feature-dropdown-wrapper.open .feature-dropdown-menu {
+      display: block;
+    }
+    .feature-dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1d2d3e;
+      transition: background 0.15s;
+    }
+    .feature-dropdown-menu a:hover {
+      background: #f0f4ff;
+      color: #0070f3;
+    }
+    .feature-dropdown-menu a + a {
+      border-top: 1px solid #e4e4e4;
+    }
+
     /* ========== Footer ========== */
     footer {
       background: #0a1628;
@@ -423,7 +469,21 @@
         boost your productivity as developer, consultant, or end-user.
       </p>
       <div class="hero__buttons">
-        <a class="btn btn--primary" href="#features">Explore Features</a>
+        <div class="feature-dropdown-wrapper" id="exploreDropdown">
+          <button class="btn btn--primary" id="exploreBtn" type="button">Explore Features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-left:4px;"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <div class="feature-dropdown-menu">
+            <a href="#popup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+              Popup
+            </a>
+            <a href="#options">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.04 7.04 0 0 0-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.04.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+              Options
+            </a>
+          </div>
+        </div>
         <a class="btn btn--secondary" href="https://chromewebstore.google.com/detail/nelmoakcfgfgkigcjgkmibhmgfpbhcbh" target="_blank" rel="noopener noreferrer">Install Extension</a>
       </div>
     </div>
@@ -492,7 +552,9 @@
 
       <div style="margin-top: 2.5rem; text-align: center;">
         <a href="https://www.youtube.com/watch?v=Qu012cdXyFc/" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+          </svg>
           Watch 3-min Overview on YouTube
         </a>
       </div>
@@ -734,9 +796,48 @@
         <p class="contact-card__email">
           Or write directly to <a href="mailto:fiorilaunchpad@gmx.de">fiorilaunchpad@gmx.de</a>
         </p>
+        <div style="margin-top: 2rem; display: flex; justify-content: center;">
+          <a href="https://github.com/EdrilanBerisha" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
+          <div style="position: relative; display: inline-block; background: #0f1e36; border-radius: 20px; padding: 2rem; cursor: pointer;">
+            <img src="imagesReadMe/eb-logo.png" alt="Edrilan Berisha - Developer / Engineer" style="height: 240px; width: auto; display: block; border-radius: 10px;" />
+            <!-- fade top -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to bottom, #0f1e36, transparent); pointer-events: none; border-radius: 20px 20px 0 0;"></div>
+            <!-- fade bottom -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to top, #1a3055, transparent); pointer-events: none; border-radius: 0 0 20px 20px;"></div>
+            <!-- fade left -->
+            <div style="position: absolute; top: 0; bottom: 0; left: 0; width: 30%; background: linear-gradient(to right, #0f1e36, transparent); pointer-events: none; border-radius: 20px 0 0 20px;"></div>
+            <!-- fade right -->
+            <div style="position: absolute; top: 0; bottom: 0; right: 0; width: 30%; background: linear-gradient(to left, #0f1e36, transparent); pointer-events: none; border-radius: 0 20px 20px 0;"></div>
+          </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    const exploreBtn = document.getElementById('exploreBtn');
+    const exploreDropdown = document.getElementById('exploreDropdown');
+
+    exploreBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      exploreDropdown.classList.toggle('open');
+    });
+
+    // Close dropdown when clicking a menu item
+    exploreDropdown.querySelectorAll('.feature-dropdown-menu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        exploreDropdown.classList.remove('open');
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!exploreDropdown.contains(e.target)) {
+        exploreDropdown.classList.remove('open');
+      }
+    });
+  </script>
 
   <!-- ========== FOOTER ========== -->
   <footer>
