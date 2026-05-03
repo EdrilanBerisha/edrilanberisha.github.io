@@ -411,6 +411,55 @@
       border-top: 1px solid #e4e4e4;
     }
 
+    /* ========== Testimonials ========== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .testimonial-card:hover { box-shadow: 0 8px 32px rgba(0,112,243,0.10); transform: translateY(-2px); }
+    .testimonial-card__header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .testimonial-card__avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testimonial-card__meta { display: flex; flex-direction: column; gap: 0.2rem; }
+    .testimonial-card__name { font-weight: 700; font-size: 0.95rem; color: #1d2d3e; }
+    .testimonial-card__date { font-size: 0.8rem; color: #94a3b8; }
+    .testimonial-card__stars { display: flex; gap: 2px; }
+    .testimonial-card__stars svg { width: 16px; height: 16px; fill: #f59e0b; }
+    .testimonial-card__text { font-size: 0.92rem; color: #374151; line-height: 1.7; flex: 1; }
+    .testimonial-card__source {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .testimonial-card__source svg { width: 14px; height: 14px; fill: #94a3b8; }
+
     /* ========== Footer ========== */
     footer {
       background: #0a1628;
@@ -448,6 +497,7 @@
       <a href="#popup">Popup</a>
       <a href="#options">Options</a>
       <a href="#technologies">Technologies</a>
+      <a href="#testimonials">Testimonials</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="navbar__actions">
@@ -797,8 +847,137 @@
     </div>
   </section>
 
+  <!-- ========== TESTIMONIALS ========== -->
+  <section id="testimonials" class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__tag">Reviews</span>
+        <h2 class="section__title">What Users Are Saying</h2>
+        <p class="section__desc">Real reviews from the Chrome Web Store — from developers, consultants, and end-users working with SAP Fiori every day.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <!-- PM H -->
+        <div class="testimonial-card">
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar" style="background: #6b7280;">PM</div>
+            <div class="testimonial-card__meta">
+              <span class="testimonial-card__name">PM H</span>
+              <span class="testimonial-card__date">12.07.2025</span>
+              <div class="testimonial-card__stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="testimonial-card__text">"This tool makes my work with S/4 so much easier. It's great, smooth, and very easy to use. Highly recommended for anyone working with S/4"</p>
+          <div class="testimonial-card__source">
+            <svg viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/></svg>
+            Chrome Web Store
+          </div>
+        </div>
+
+        <!-- DD D -->
+        <div class="testimonial-card">
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar" style="background: #7c3aed;">DD</div>
+            <div class="testimonial-card__meta">
+              <span class="testimonial-card__name">DD D</span>
+              <span class="testimonial-card__date">23.04.2025</span>
+              <div class="testimonial-card__stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="testimonial-card__text">"Excellent extension! It helps a lot for using Fiori apps!"</p>
+          <div class="testimonial-card__source">
+            <svg viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/></svg>
+            Chrome Web Store
+          </div>
+        </div>
+
+        <!-- Marty M -->
+        <div class="testimonial-card">
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar" style="background: #059669;">M</div>
+            <div class="testimonial-card__meta">
+              <span class="testimonial-card__name">Marty M</span>
+              <span class="testimonial-card__date">11.09.2024</span>
+              <div class="testimonial-card__stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="testimonial-card__text">"Nice and helpful Extension :-D"</p>
+          <div class="testimonial-card__source">
+            <svg viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/></svg>
+            Chrome Web Store
+          </div>
+        </div>
+
+        <!-- Stefan Butscher -->
+        <div class="testimonial-card">
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar" style="background: #7c3aed;">S</div>
+            <div class="testimonial-card__meta">
+              <span class="testimonial-card__name">Stefan Butscher</span>
+              <span class="testimonial-card__date">05.09.2024</span>
+              <div class="testimonial-card__stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="testimonial-card__text">"Perfect tool for efficiently working with the Fiori launchpad."</p>
+          <div class="testimonial-card__source">
+            <svg viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/></svg>
+            Chrome Web Store
+          </div>
+        </div>
+
+        <!-- Boris W -->
+        <div class="testimonial-card">
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar" style="background: #0d9488;">B</div>
+            <div class="testimonial-card__meta">
+              <span class="testimonial-card__name">Boris W</span>
+              <span class="testimonial-card__date">04.09.2024</span>
+              <div class="testimonial-card__stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="testimonial-card__text">"Quick access to favorite Fiori apps"</p>
+          <div class="testimonial-card__source">
+            <svg viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728z"/></svg>
+            Chrome Web Store
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CONTACT ========== -->
-  <section id="contact" class="section section--alt">
+  <section id="contact" class="section">
     <div class="container">
       <div class="contact-card">
         <h2 class="contact-card__title">Get In Touch</h2>
