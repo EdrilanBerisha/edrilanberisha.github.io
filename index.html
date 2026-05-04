@@ -41,10 +41,27 @@
       gap: 2rem;
     }
 
-    .logo {
+    .logo-wrap {
+      position: relative;
+      display: inline-block;
       width: min(400px, 82vw);
-      height: auto;
       animation: fadeInDown 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+    .logo {
+      width: 100%;
+      height: auto;
+      display: block;
+      /* blend the pure black of the logo bg with the page */
+      mix-blend-mode: lighten;
+    }
+    /* Radial vignette that softens the hard square edge */
+    .logo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 55%, #000 100%);
+      pointer-events: none;
     }
 
     .divider {
@@ -291,7 +308,9 @@
 
   <!-- ========== HERO ========== -->
   <section class="hero">
-    <img class="logo" src="imagesReadMe/eb-logo.png" alt="Edrilan Berisha — Developer / Engineer" />
+    <div class="logo-wrap">
+      <img class="logo" src="imagesReadMe/eb-logo.png" alt="Edrilan Berisha — Developer / Engineer" />
+    </div>
 
     <div class="divider"></div>
 
