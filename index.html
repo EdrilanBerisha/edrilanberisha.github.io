@@ -77,37 +77,37 @@
       animation: pulse 2s ease-in-out infinite;
     }
 
-    .headline {
-      animation: fadeInUp 0.9s 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
-    }
-    .headline h1 {
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-    .headline h1 span {
-      background: linear-gradient(90deg, #5bbcff, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
 
-    .scroll-hint {
-      animation: fadeIn 1.5s 1.2s both;
+    /* Nav tiles */
+    .nav-tiles {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.25);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: color 0.2s;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.9s 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
     }
-    .scroll-hint:hover { color: rgba(255,255,255,0.5); }
-    .scroll-hint svg { animation: bounce 2s ease-in-out infinite; width: 18px; height: 18px; fill: currentColor; }
+    .nav-tile {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.75rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .nav-tile:hover {
+      background: rgba(91,188,255,0.1);
+      border-color: rgba(91,188,255,0.4);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .nav-tile svg { width: 16px; height: 16px; fill: #5bbcff; flex-shrink: 0; }
 
     /* ========== SECTIONS ========== */
     .sections {
@@ -283,13 +283,15 @@
       Under Construction
     </div>
 
-    <div class="headline">
-      <h1>Something <span>great</span> is coming.</h1>
-    </div>
-
-    <div class="scroll-hint" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
-      <span>Explore</span>
-      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+    <div class="nav-tiles">
+      <a class="nav-tile" href="#projects" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        Projects
+      </a>
+      <a class="nav-tile" href="#blogs" onclick="event.preventDefault();document.getElementById('blogs').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+        Blogs
+      </a>
     </div>
   </section>
 
