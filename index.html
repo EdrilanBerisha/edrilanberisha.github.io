@@ -329,10 +329,6 @@
         <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
         Projects
       </a>
-      <a class="nav-tile" href="#blogs" onclick="event.preventDefault();document.getElementById('blogs').scrollIntoView({behavior:'smooth'})">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
-        Blogs
-      </a>
       <a class="nav-tile" href="#patents" onclick="event.preventDefault();document.getElementById('patents').scrollIntoView({behavior:'smooth'})">
         <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg>
         Patent
@@ -340,6 +336,10 @@
       <a class="nav-tile" href="#contributions" onclick="event.preventDefault();document.getElementById('contributions').scrollIntoView({behavior:'smooth'})">
         <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         Contributions
+      </a>
+      <a class="nav-tile" href="#blogs" onclick="event.preventDefault();document.getElementById('blogs').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+        Blogs
       </a>
     </div>
   </section>
@@ -372,6 +372,63 @@
             <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
           </div>
         </a>
+      </div>
+    </div>
+
+    <!-- Patent -->
+    <div class="section-block" id="patents">
+      <div class="section-label"><span>Patent</span></div>
+      <div class="blog-list">
+
+        <a class="blog-item" href="https://patents.google.com/patent/US20240386356A1/en" target="_blank" rel="noopener noreferrer">
+          <svg class="blog-item__icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg>
+          Database System and Method for Determining and Utilizing Environmental Metrics — US20240386356A1
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Open Source Contributions -->
+    <div class="section-block" id="contributions">
+      <div class="section-label"><span>Open Source Contributions</span></div>
+      <div class="projects-grid">
+
+        <a class="project-card" href="https://newreleases.io/project/github/kyma-project/kyma/release/2.18.0" target="_blank" rel="noopener noreferrer">
+          <img class="project-card__logo" src="https://raw.githubusercontent.com/kyma-project/kyma/main/logo.png" alt="Kyma" />
+          <div class="project-card__name">Kyma 2.18.0</div>
+          <div class="project-card__desc">
+            Kyma is an open-source cloud-native application runtime that extends SAP BTP and Kubernetes with enterprise-grade tools for building, connecting, and operating microservices and serverless functions. Contributed to the <strong style="color:rgba(255,255,255,0.7);">Kyma 2.18.0</strong> release as a committer.
+          </div>
+          <div class="project-card__arrow">
+            View release &amp; committers
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://github.com/SAP/ui5-webcomponents" target="_blank" rel="noopener noreferrer">
+          <img class="project-card__logo" src="imagesReadMe/ui5logo.png" alt="UI5 Web Components" />
+          <div class="project-card__name">UI5 Web Components</div>
+          <div class="project-card__desc">
+            UI5 Web Components is SAP's open-source library of enterprise-grade UI components based on the Web Components standard — the building blocks behind SAP Fiori applications. Contributed to the project.
+          </div>
+          <div class="project-card__arrow">
+            View on GitHub
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://github.com/UI5/openui5" target="_blank" rel="noopener noreferrer">
+          <img class="project-card__logo" src="imagesReadMe/openui5logo.svg" alt="OpenUI5" style="filter: brightness(1.2);" />
+          <div class="project-card__name">OpenUI5</div>
+          <div class="project-card__desc">
+            OpenUI5 is SAP's open-source JavaScript UI framework for building enterprise-grade web applications following the SAP Fiori design language. It provides a rich set of UI controls, data binding, routing, and internationalisation support — powering thousands of SAP applications worldwide. Fixed bugs and committed code to the project.
+          </div>
+          <div class="project-card__arrow">
+            View on GitHub
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          </div>
+        </a>
+
       </div>
     </div>
 
@@ -433,62 +490,6 @@
       </div>
     </div>
 
-    <!-- Patent -->
-    <div class="section-block" id="patents">
-      <div class="section-label"><span>Patent</span></div>
-      <div class="blog-list">
-
-        <a class="blog-item" href="https://patents.google.com/patent/US20240386356A1/en" target="_blank" rel="noopener noreferrer">
-          <svg class="blog-item__icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg>
-          Database System and Method for Determining and Utilizing Environmental Metrics — US20240386356A1
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Open Source Contributions -->
-    <div class="section-block" id="contributions">
-      <div class="section-label"><span>Open Source Contributions</span></div>
-      <div class="projects-grid">
-
-        <a class="project-card" href="https://newreleases.io/project/github/kyma-project/kyma/release/2.18.0" target="_blank" rel="noopener noreferrer">
-          <img class="project-card__logo" src="https://raw.githubusercontent.com/kyma-project/kyma/main/logo.png" alt="Kyma" />
-          <div class="project-card__name">Kyma 2.18.0</div>
-          <div class="project-card__desc">
-            Kyma is an open-source cloud-native application runtime that extends SAP BTP and Kubernetes with enterprise-grade tools for building, connecting, and operating microservices and serverless functions. Contributed to the <strong style="color:rgba(255,255,255,0.7);">Kyma 2.18.0</strong> release as a committer.
-          </div>
-          <div class="project-card__arrow">
-            View release &amp; committers
-            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-          </div>
-        </a>
-
-        <a class="project-card" href="https://github.com/SAP/ui5-webcomponents" target="_blank" rel="noopener noreferrer">
-          <img class="project-card__logo" src="imagesReadMe/ui5logo.png" alt="UI5 Web Components" />
-          <div class="project-card__name">UI5 Web Components</div>
-          <div class="project-card__desc">
-            UI5 Web Components is SAP's open-source library of enterprise-grade UI components based on the Web Components standard — the building blocks behind SAP Fiori applications. Contributed to the project.
-          </div>
-          <div class="project-card__arrow">
-            View on GitHub
-            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-          </div>
-        </a>
-
-        <a class="project-card" href="https://github.com/UI5/openui5" target="_blank" rel="noopener noreferrer">
-          <img class="project-card__logo" src="imagesReadMe/openui5logo.svg" alt="OpenUI5" style="filter: brightness(1.2);" />
-          <div class="project-card__name">OpenUI5</div>
-          <div class="project-card__desc">
-            OpenUI5 is SAP's open-source JavaScript UI framework for building enterprise-grade web applications following the SAP Fiori design language. It provides a rich set of UI controls, data binding, routing, and internationalisation support — powering thousands of SAP applications worldwide. Fixed bugs and committed code to the project.
-          </div>
-          <div class="project-card__arrow">
-            View on GitHub
-            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-          </div>
-        </a>
-
-      </div>
-    </div>
 
   </div><!-- end sections -->
 
