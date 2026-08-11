@@ -493,7 +493,7 @@
           <img class="project-card__logo" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" alt="TensorFlow" style="height: 36px; width: auto; object-fit: contain;" />
           <div class="project-card__name">TensorFlow</div>
           <div class="project-card__desc">
-            TensorFlow is Google's open-source end-to-end machine learning platform — one of the most widely used frameworks for building and deploying ML models at scale, powering production AI workloads across research institutions and enterprises worldwide. Fixed a documentation error in the <strong style="color:rgba(255,255,255,0.7);">XLA custom call API reference</strong> where an incorrect parameter description was causing confusion for developers implementing custom operations.
+            TensorFlow is Google's open-source end-to-end machine learning platform — one of the most widely used frameworks for building and deploying ML models at scale, powering production AI workloads across research institutions and enterprises worldwide. Fixed a performance regression introduced in TF 2.21+ where <strong style="color:rgba(255,255,255,0.7);">XLA einsum gradient ops using ellipsis notation</strong> caused large register spills (~50–90 KB vs ~8–84 B) when <code style="background:rgba(255,255,255,0.08);padding:0.1em 0.3em;border-radius:4px;">jit_compile=True</code>, by resolving <code style="background:rgba(255,255,255,0.08);padding:0.1em 0.3em;border-radius:4px;">...</code> to concrete axis labels so XLA could consistently lower gradient ops to its efficient dot/gemm path.
           </div>
           <div class="project-card__arrow">
             View on GitHub
