@@ -311,14 +311,20 @@
   var WORKER = 'https://site-analytics.suprcell129012.workers.dev';
   var section = '';
 
-  // Track which section is visible via IntersectionObserver
+  // Only observe the real named content sections — not every [id] on the page
+  var SECTIONS = ['projects', 'patents', 'contributions', 'blogs'];
+
+  // Track which section scrolls into view (>30% visible)
   if ('IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting && e.intersectionRatio > 0.4) section = e.target.id;
+        if (e.isIntersecting && e.intersectionRatio > 0.3) section = e.target.id;
       });
-    }, { threshold: 0.4 });
-    document.querySelectorAll('[id]').forEach(function (t) { obs.observe(t); });
+    }, { threshold: 0.3 });
+    SECTIONS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
   }
 
   function ping(params) {
@@ -330,6 +336,17 @@
   setTimeout(function () {
     ping({ e: 'pageview', p: '/', r: document.referrer || '', s: section });
   }, 1500);
+
+  // ── Nav tile section-visit tracking ──
+  // Fires a dedicated 'section' event when visitor clicks a nav tile to jump to a section
+  document.addEventListener('click', function (ev) {
+    var tile = ev.target.closest('.nav-tile[href]');
+    if (!tile) return;
+    var target = (tile.getAttribute('href') || '').replace('#', '');
+    if (SECTIONS.indexOf(target) !== -1) {
+      ping({ e: 'section', p: '/', s: target });
+    }
+  });
 
   // ── Outbound link click tracking ──
   // Label map: href → short human-readable name for the dashboard

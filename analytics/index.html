@@ -452,7 +452,7 @@ function render(visits, days) {
   renderTable('osBody',     countBy(pvs, x => x.ua?.os || 'Unknown'), pvs.length);
   renderTable('refBody',    countBy(pvs, x => cleanRef(x.ref)).filter(([k])=>k&&k!=='direct'), pvs.length, 8);
   renderTable('clickBody',  countBy(clicks, x => x.target || 'unknown'), clicks.length, 20);
-  renderSections(pvs);
+  renderSections(v);
 }
 
 // -- All-time stats banner --
@@ -581,11 +581,24 @@ function renderBarChart(v, days) {
   set('visitsChartTitle', `Visits per day (${v.length} total${days?' / '+days+'d':''})` );
 }
 // -- Sections --
+// Counts both: scroll-into-view (section field on pageviews) + nav-tile clicks (event=section)
 function renderSections(v) {
   const pills = document.getElementById('sectionPills');
-  const secs  = countBy(v.filter(x => x.section), x => x.section);
+  // Combine: pageview with a section field  +  explicit event='section' records
+  const counts = {};
+  v.forEach(x => {
+    // Scroll-detected: pageview record has a non-empty section
+    if ((x.event === 'pageview' || !x.event) && x.section) {
+      counts[x.section] = (counts[x.section] || 0) + 1;
+    }
+    // Nav-tile click: event=section record
+    if (x.event === 'section' && x.section) {
+      counts[x.section] = (counts[x.section] || 0) + 1;
+    }
+  });
+  const secs = Object.entries(counts).sort((a,b) => b[1]-a[1]);
   if (!secs.length) { pills.innerHTML = '<span class="no-data">No section data yet</span>'; return; }
-  const ico = { projects:'&#x1F527;', patent:'&#x1F4DC;', contributions:'&#x1F91D;', blogs:'&#x270D;&#xFE0F;' };
+  const ico = { projects:'&#x1F527;', patents:'&#x1F4DC;', contributions:'&#x1F91D;', blogs:'&#x270D;&#xFE0F;' };
   pills.innerHTML = secs.map(([s,n]) =>
     `<div class="spill">${ico[s.toLowerCase()]||'&#x1F4CC;'} ${s} <b>${n}</b></div>`
   ).join('');
