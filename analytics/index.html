@@ -12,6 +12,51 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #e2e8f0;
     }
+    /* ── Password gate ── */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0a0a0f;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #gate::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,80,160,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 85%, rgba(91,188,255,0.06) 0%, transparent 60%);
+    }
+    .gate-box {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; padding: 2.5rem 2.5rem 2rem;
+      width: 100%; max-width: 360px; text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+    .gate-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+    .gate-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .gate-sub { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-bottom: 1.6rem; }
+    .gate-input {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.07);
+      color: #fff; font-size: 1rem; letter-spacing: 0.05em;
+      outline: none; transition: border-color 0.2s; margin-bottom: 1rem;
+    }
+    .gate-input:focus { border-color: rgba(91,188,255,0.5); }
+    .gate-input.shake {
+      animation: shake 0.4s; border-color: rgba(239,68,68,0.6);
+    }
+    .gate-btn {
+      width: 100%; padding: 0.75rem; border-radius: 10px; border: none;
+      background: linear-gradient(135deg, #3b82f6, #5bbcff);
+      color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .gate-btn:hover { opacity: 0.88; }
+    .gate-err { font-size: 0.78rem; color: #f87171; margin-top: 0.75rem; min-height: 1.1em; }
+    @keyframes shake {
+      0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
+      40%{transform:translateX(8px)}   60%{transform:translateX(-5px)}
+      80%{transform:translateX(5px)}
+    }
     body::before {
       content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
@@ -88,6 +133,20 @@
   </style>
 </head>
 <body>
+
+<!-- ── Password gate (hidden once authenticated) ── -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔐</div>
+    <div class="gate-title">Analytics Dashboard</div>
+    <div class="gate-sub">edrilanberisha.github.io · private</div>
+    <input id="gateInput" class="gate-input" type="password"
+           placeholder="Enter password" autocomplete="current-password" />
+    <button class="gate-btn" onclick="checkPassword()">Unlock</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
 <div class="wrap">
 
   <header>
@@ -365,8 +424,48 @@ function cleanRef(r) {
 }
 function set(id, html) { const el=document.getElementById(id); if(el) el.innerHTML=html; }
 
-// Boot
-loadVisits();
+// ── Password gate ────────────────────────────────────────────────────────────
+// Password is SHA-256 hashed — plain text never stored in code.
+// sha256("***REDACTED***"):
+const PW_HASH = 'OLDHASH_REMOVED';
+
+async function hashPw(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPassword() {
+  const val = document.getElementById('gateInput').value;
+  const h   = await hashPw(val);
+  if (h === PW_HASH) {
+    sessionStorage.setItem('analytics_auth', '1');
+    document.getElementById('gate').style.display = 'none';
+    loadVisits();
+    setInterval(loadVisits, 30_000); // auto-refresh every 30s
+  } else {
+    const inp = document.getElementById('gateInput');
+    const err = document.getElementById('gateErr');
+    err.textContent = 'Incorrect password. Try again.';
+    inp.classList.remove('shake');
+    void inp.offsetWidth; // reflow to restart animation
+    inp.classList.add('shake');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('shake'), 500);
+  }
+}
+
+// Allow pressing Enter in the password field
+document.getElementById('gateInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPassword();
+});
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+// Auto-unlock if already authenticated this session (survives page refresh)
+if (sessionStorage.getItem('analytics_auth') === '1') {
+  document.getElementById('gate').style.display = 'none';
+  loadVisits();
+  setInterval(loadVisits, 30_000); // auto-refresh every 30s
+}
 </script>
 </body>
 </html>
