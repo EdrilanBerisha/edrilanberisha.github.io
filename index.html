@@ -304,6 +304,29 @@
     }
   </style>
 </head>
+<script>
+/* ── Analytics tracker — edrilanberisha.github.io ────────────────────────────
+   Pings the Cloudflare Worker on every page-load.
+   Replace the WORKER URL below with your actual Workers.dev URL.         */
+(function () {
+  var WORKER = 'https://site-analytics.YOUR_SUBDOMAIN.workers.dev';
+  var section = '';
+  // Track which section the visitor scrolls into
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && e.intersectionRatio > 0.4) section = e.target.id;
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[id]').forEach(function (t) { obs.observe(t); });
+  }
+  // Fire ping after 1.5 s so the section observer has time to fire
+  setTimeout(function () {
+    var p = new URLSearchParams({ p: '/', r: document.referrer || '', s: section });
+    fetch(WORKER + '?' + p, { method: 'GET', keepalive: true }).catch(function () {});
+  }, 1500);
+})();
+</script>
 <body>
 <div class="page">
 
