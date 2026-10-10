@@ -306,12 +306,12 @@
 </head>
 <script>
 /* ── Analytics tracker — edrilanberisha.github.io ────────────────────────────
-   Pings the Cloudflare Worker on every page-load.
-   Replace the WORKER URL below with your actual Workers.dev URL.         */
+   Fires on page-load AND on every outbound link click.                      */
 (function () {
   var WORKER = 'https://site-analytics.suprcell129012.workers.dev';
   var section = '';
-  // Track which section the visitor scrolls into
+
+  // Track which section is visible via IntersectionObserver
   if ('IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -320,11 +320,53 @@
     }, { threshold: 0.4 });
     document.querySelectorAll('[id]').forEach(function (t) { obs.observe(t); });
   }
-  // Fire ping after 1.5 s so the section observer has time to fire
+
+  function ping(params) {
+    fetch(WORKER + '?' + new URLSearchParams(params), { method: 'GET', keepalive: true })
+      .catch(function () {});
+  }
+
+  // ── Page-load ping (after 1.5s so section observer fires first) ──
   setTimeout(function () {
-    var p = new URLSearchParams({ p: '/', r: document.referrer || '', s: section });
-    fetch(WORKER + '?' + p, { method: 'GET', keepalive: true }).catch(function () {});
+    ping({ e: 'pageview', p: '/', r: document.referrer || '', s: section });
   }, 1500);
+
+  // ── Outbound link click tracking ──
+  // Label map: href → short human-readable name for the dashboard
+  var LINK_LABELS = {
+    'https://edrilanberisha.github.io/sapclouderplaunchpad': 'SAP Cloud ERP Launchpad',
+    'https://github.com/EdrilanBerisha/olingo-spring-example': 'GitHub: olingo-spring-example',
+    'https://patents.google.com/patent/US20240386356A1/en': 'Patent: US20240386356A1',
+    'https://github.com/tensorflow/tensorflow': 'GitHub: tensorflow',
+    'https://newreleases.io/project/github/kyma-project/kyma/release/2.18.0': 'Kyma 2.18.0 release',
+    'https://github.com/SAP/ui5-webcomponents': 'GitHub: ui5-webcomponents',
+    'https://github.com/UI5/openui5': 'GitHub: openui5',
+    'https://github.com/gardener/gardener': 'GitHub: gardener',
+    'https://github.com/cobaltcore-dev/aurora-dashboard': 'GitHub: aurora-dashboard',
+    'https://github.com/SAP/architecture-center': 'GitHub: architecture-center',
+    'https://github.com/cloudoperators/greenhouse': 'GitHub: greenhouse',
+    'https://github.com/SAP-cloud-infrastructure/elektra': 'GitHub: elektra',
+    'https://blogs.sap.com/2021/08/04/calling-a-soap-api-using-postman/': 'Blog: SOAP API Postman',
+    'https://blogs.sap.com/2021/10/29/building-an-odata-service-with-a-spring-java-application-using-olingo-part-i/': 'Blog: OData Olingo I',
+    'https://blogs.sap.com/2022/01/17/building-an-odata-service-with-a-spring-java-application-using-olingo-part-ii/': 'Blog: OData Olingo II',
+    'https://blogs.sap.com/2022/08/02/building-an-odata-service-with-a-spring-boot-java-application-using-olingo-part-iii-payloads-and-custom-logic/': 'Blog: OData Olingo III',
+    'https://blogs.sap.com/2020/02/16/keyboard-shortcuts-for-power-user-in-fiori-elements-applications/': 'Blog: Fiori Keyboard Shortcuts',
+    'https://community.sap.com/t5/technology-blog-posts-by-sap/how-to-change-ui5-version-in-sap-build-code/ba-p/13551900': 'Blog: UI5 Version in Build Code',
+    'https://community.sap.com/t5/financial-management-blogs-by-sap/how-to-copy-bank-statement-data-from-excel-to-sap-s-4hana-using-the-manage/ba-p/13614570': 'Blog: Bank Statement Excel',
+    'https://community.sap.com/t5/enterprise-resource-planning-blogs-by-sap/future-of-electronic-bank-statement-processing-in-sap-s-4hana-cloud/ba-p/13705172': 'Blog: Bank Statement Future',
+    'https://community.sap.com/t5/technology-blog-posts-by-sap/can-a-free-chrome-extension-transform-your-sap-cloud-erp-experience/ba-p/13801414': 'Blog: Chrome Extension ERP',
+    'https://community.sap.com/t5/technology-blog-posts-by-sap/sap-cloud-erp-launchpad-extension-v2-2-fiori-app-groups-amp-multi-language/ba-p/14349335': 'Blog: Launchpad v2.2',
+    'https://community.sap.com/t5/technology-blog-posts-by-sap/sap-cloud-erp-launchpad-extension-v3-2-dark-mode-auto-login-amp-more/ba-p/14428956': 'Blog: Launchpad v3.2'
+  };
+
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!href.startsWith('http')) return; // skip internal anchor links
+    var label = LINK_LABELS[href] || href.replace(/^https?:\/\//, '').slice(0, 60);
+    ping({ e: 'click', p: '/', s: section, t: label });
+  });
 })();
 </script>
 <body>

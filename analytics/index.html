@@ -257,6 +257,17 @@
     </div>
   </div>
 
+  <!-- Outbound clicks full-width card -->
+  <div class="card" style="margin-bottom:1rem">
+    <div class="card__title">&#x1F517; Top clicked links</div>
+    <table class="data-table">
+      <thead><tr><th>Link</th><th>Clicks</th></tr></thead>
+      <tbody id="clickBody">
+        <tr><td colspan="2" class="no-data"><span class="spinner"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <footer>
     Private analytics &#x2022; Data in
     <a href="https://github.com/EdrilanBerisha/site-analytics" target="_blank" rel="noopener">EdrilanBerisha/site-analytics</a>
@@ -334,16 +345,19 @@ function countBy(visits, fn) {
 
 // ── Main render ───────────────────────────────────────────────────────────────
 function render(visits, days) {
-  const v = filterVisits(visits, days);
-  renderKPIs(v, days);
-  renderBarChart(v, days);
-  renderTable('browserBody', countBy(v, x => x.ua?.browser || 'Unknown'), v.length);
-  renderTable('countryBody', countBy(v, x => x.country || '??').map(([c,n]) => {
+  const v       = filterVisits(visits, days);
+  const clicks  = v.filter(x => x.event === 'click');
+  const pvs     = v.filter(x => x.event === 'pageview' || !x.event); // backwards-compat
+  renderKPIs(pvs, days);
+  renderBarChart(pvs, days);
+  renderTable('browserBody', countBy(pvs, x => x.ua?.browser || 'Unknown'), pvs.length);
+  renderTable('countryBody', countBy(pvs, x => x.country || '??').map(([c,n]) => {
     try { return [FLAG(c)+' '+c, n]; } catch { return [c, n]; }
-  }), v.length, 8);
-  renderTable('osBody',  countBy(v, x => x.ua?.os || 'Unknown'), v.length);
-  renderTable('refBody', countBy(v, x => cleanRef(x.ref)).filter(([k])=>k&&k!=='direct'), v.length, 8);
-  renderSections(v);
+  }), pvs.length, 8);
+  renderTable('osBody',     countBy(pvs, x => x.ua?.os || 'Unknown'), pvs.length);
+  renderTable('refBody',    countBy(pvs, x => cleanRef(x.ref)).filter(([k])=>k&&k!=='direct'), pvs.length, 8);
+  renderTable('clickBody',  countBy(clicks, x => x.target || 'unknown'), clicks.length, 20);
+  renderSections(pvs);
 }
 
 // ── KPIs ──────────────────────────────────────────────────────────────────────
