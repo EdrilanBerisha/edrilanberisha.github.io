@@ -127,6 +127,32 @@
     .spill b { color: #5bbcff; }
     footer { text-align: center; color: rgba(255,255,255,0.2); font-size: 0.75rem; margin-top: 3rem; }
     footer a { color: #5bbcff; }
+    /* ── All-time records banner ── */
+    .alltime-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, rgba(91,188,255,0.06) 0%, rgba(30,80,160,0.1) 100%);
+      border: 1px solid rgba(91,188,255,0.18);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .alltime-banner::before {
+      content: 'ALL-TIME RECORDS';
+      position: absolute; top: 0.45rem; right: 0.9rem;
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      color: rgba(91,188,255,0.35); font-weight: 700;
+    }
+    .alltime-item { text-align: center; padding: 0.25rem 0; }
+    .alltime-label { font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-bottom: 0.3rem; letter-spacing: 0.04em; }
+    .alltime-value { font-size: 1.15rem; font-weight: 700; color: #5bbcff; line-height: 1.1; }
+    .alltime-value--sm { font-size: 0.8rem; word-break: break-word; }
+    .alltime-sub { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.15rem; }
+    @media (max-width: 700px) { .alltime-banner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 420px) { .alltime-banner { grid-template-columns: 1fr; } }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
     @keyframes spin  { to{transform:rotate(360deg)} }
     @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
@@ -156,7 +182,9 @@
       <span class="last-updated" id="lastUpdated">Loading&#x2026;</span>
       <button class="range-btn active" data-days="30">30d</button>
       <button class="range-btn" data-days="7">7d</button>
+      <button class="range-btn" data-days="60">60d</button>
       <button class="range-btn" data-days="90">90d</button>
+      <button class="range-btn" data-days="180">180d</button>
       <button class="range-btn" data-days="0">All time</button>
     </div>
   </header>
@@ -192,6 +220,27 @@
       <div class="kpi__value" id="kpiToday">&#x2014;</div>
       <div class="kpi__sub"  id="kpiTodaySub"></div>
       <div class="kpi__icon">&#x1F4C5;</div>
+    </div>
+  </div>
+
+  <!-- All-time records banner — always shows lifetime totals regardless of filter -->
+  <div class="alltime-banner" id="alltimeBanner">
+    <div class="alltime-item">
+      <div class="alltime-label">&#x1F4C6; First visit</div>
+      <div class="alltime-value" id="atFirst">&#x2014;</div>
+    </div>
+    <div class="alltime-item">
+      <div class="alltime-label">&#x1F525; Busiest day</div>
+      <div class="alltime-value" id="atBusiest">&#x2014;</div>
+      <div class="alltime-sub" id="atBusiestSub"></div>
+    </div>
+    <div class="alltime-item">
+      <div class="alltime-label">&#x1F30E; All-time visits</div>
+      <div class="alltime-value" id="atTotal">&#x2014;</div>
+    </div>
+    <div class="alltime-item">
+      <div class="alltime-label">&#x1F517; Top link ever</div>
+      <div class="alltime-value alltime-value--sm" id="atTopLink">&#x2014;</div>
     </div>
   </div>
 
@@ -275,79 +324,125 @@
 
 </div><!-- /wrap -->
 <script>
-// ── Configuration ─────────────────────────────────────────────────────────────
+// -- Configuration --
 const REPO  = 'EdrilanBerisha/site-analytics';
 const API   = `https://api.github.com/repos/${REPO}/contents`;
 // Token stored split+encoded to avoid plaintext secret scanning
 const TOKEN = atob('Z2hwX2FXYm4yclJjN3prSG1GRzY=') + atob('MWpFRUdLclBDQkhsZFA0Qjlid3M=');
 const HDRS  = { 'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json' };
-// Country code → flag emoji
 const FLAG  = c => c.split('').map(l => String.fromCodePoint(l.charCodeAt(0) + 127397)).join('');
 const fmtN  = n => n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n);
 
-let allVisits = [];
-let activeDays = 30;
+let allVisits      = [];
+let allEverData    = [];
+let activeDays     = 30;
+let allMonthsAvail = null;
 
-// ── Range buttons ─────────────────────────────────────────────────────────────
+// -- Range buttons --
 document.querySelectorAll('.range-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeDays = +btn.dataset.days;
-    render(allVisits, activeDays);
+    loadVisits();
   });
 });
 
-// ── Data loading ──────────────────────────────────────────────────────────────
-async function loadVisits() {
-  // Fetch the last 3 months of data
-  const months = [];
+// -- Month helpers --
+function monthsForRange(days) {
+  // Returns array of 'YYYY-MM' strings covering `days` days back from today
+  if (days === 0) return null;
+  const needed = Math.ceil(days / 28) + 1; // +1 buffer month
   const now = new Date();
-  for (let i = 0; i < 3; i++) {
+  const months = [];
+  for (let i = 0; i < needed; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     months.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);
   }
+  return months;
+}
 
-  const results = await Promise.allSettled(
-    months.map(m =>
-      fetch(`${API}/visits/${m}.json`, { headers: HDRS })
-        .then(r => r.ok ? r.json() : null)
-        .then(d => d ? JSON.parse(atob(d.content.replace(/\n/g, ''))) : [])
-        .catch(() => [])
-        .catch(() => [])
-    )
-  );
+async function fetchMonthFile(m) {
+  try {
+    const r = await fetch(`${API}/visits/${m}.json`, { headers: HDRS });
+    if (!r.ok) return [];
+    const d = await r.json();
+    return JSON.parse(atob(d.content.replace(/\n/g, '')));
+  } catch { return []; }
+}
 
+async function fetchAllAvailableMonths() {
+  // Discover every month file by listing the visits/ directory
+  try {
+    const r = await fetch(`${API}/visits`, { headers: HDRS });
+    if (!r.ok) return [];
+    const files = await r.json();
+    return files
+      .filter(f => f.type === 'file' && /^\d{4}-\d{2}\.json$/.test(f.name))
+      .map(f => f.name.replace('.json',''))
+      .sort();
+  } catch { return []; }
+}
+// -- Data loading --
+async function loadVisits() {
+  const dot = document.getElementById('statusDot');
+  const lbl = document.getElementById('lastUpdated');
+  dot.classList.remove('dot-ok','dot-err');
+  dot.style.animation = 'pulse 1s infinite';
+  lbl.textContent = 'Loading…';
+
+  let months;
+  if (activeDays === 0) {
+    // All-time: discover all available month files
+    if (!allMonthsAvail) allMonthsAvail = await fetchAllAvailableMonths();
+    months = allMonthsAvail.length ? allMonthsAvail : monthsForRange(180);
+  } else {
+    months = monthsForRange(activeDays);
+  }
+
+  const results = await Promise.allSettled(months.map(fetchMonthFile));
   allVisits = results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
   allVisits.sort((a, b) => a.ts < b.ts ? -1 : 1);
 
-  document.getElementById('lastUpdated').textContent =
-    allVisits.length > 0
-      ? 'Updated ' + new Date(allVisits[allVisits.length-1].ts).toLocaleString()
-      : 'No data yet';
+  // Populate allEverData once (used for the all-time banner)
+  if (!allEverData.length) {
+    if (!allMonthsAvail) allMonthsAvail = await fetchAllAvailableMonths();
+    if (allMonthsAvail.length) {
+      const all = await Promise.allSettled(allMonthsAvail.map(fetchMonthFile));
+      allEverData = all.flatMap(r => r.status === 'fulfilled' ? r.value : []);
+      allEverData.sort((a, b) => a.ts < b.ts ? -1 : 1);
+    } else {
+      allEverData = [...allVisits];
+    }
+  }
+
+  const last = allVisits.length > 0 ? allVisits[allVisits.length-1] : null;
+  lbl.textContent = last ? 'Updated ' + new Date(last.ts).toLocaleString() : 'No data yet';
+  dot.style.animation = '';
+  dot.classList.add(allVisits.length > 0 ? 'dot-ok' : 'dot-err');
 
   render(allVisits, activeDays);
+  renderAllTimeStats(allEverData.length ? allEverData : allVisits);
 }
-
-// ── Filter by date range ──────────────────────────────────────────────────────
+// -- Filter by date range --
 function filterVisits(visits, days) {
   if (!days) return visits;
   const cutoff = new Date(Date.now() - days * 86400000).toISOString();
   return visits.filter(v => v.ts >= cutoff);
 }
 
-// ── Count helper ──────────────────────────────────────────────────────────────
+// -- Count helper --
 function countBy(visits, fn) {
   const m = {};
   visits.forEach(v => { const k = fn(v); m[k] = (m[k]||0)+1; });
   return Object.entries(m).sort((a,b) => b[1]-a[1]);
 }
 
-// ── Main render ───────────────────────────────────────────────────────────────
+// -- Main render --
 function render(visits, days) {
-  const v       = filterVisits(visits, days);
-  const clicks  = v.filter(x => x.event === 'click');
-  const pvs     = v.filter(x => x.event === 'pageview' || !x.event); // backwards-compat
+  const v      = filterVisits(visits, days);
+  const clicks = v.filter(x => x.event === 'click');
+  const pvs    = v.filter(x => x.event === 'pageview' || !x.event);
   renderKPIs(pvs, days);
   renderBarChart(pvs, days);
   renderTable('browserBody', countBy(pvs, x => x.ua?.browser || 'Unknown'), pvs.length);
@@ -360,7 +455,35 @@ function render(visits, days) {
   renderSections(pvs);
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────────
+// -- All-time stats banner --
+function renderAllTimeStats(all) {
+  const pvs = all.filter(x => x.event === 'pageview' || !x.event);
+  const cls = all.filter(x => x.event === 'click');
+
+  // First visit date
+  const first = pvs.length ? pvs[0].ts.slice(0,10) : null;
+  set('atFirst', first || '—');
+
+  // Busiest single day
+  const byDay = {};
+  pvs.forEach(x => { const d = x.ts.slice(0,10); byDay[d] = (byDay[d]||0)+1; });
+  const busiestEntry = Object.entries(byDay).sort((a,b)=>b[1]-a[1])[0];
+  if (busiestEntry) {
+    set('atBusiest', busiestEntry[0]);
+    set('atBusiestSub', busiestEntry[1] + ' visits');
+  } else {
+    set('atBusiest', '—');
+    set('atBusiestSub', '');
+  }
+
+  // All-time visit total
+  set('atTotal', fmtN(pvs.length));
+
+  // Most-clicked link ever
+  const topClick = countBy(cls, x => x.target || 'unknown')[0];
+  set('atTopLink', topClick ? `${topClick[0]} (${topClick[1]})` : '—');
+}
+// -- KPIs --
 function renderKPIs(v, days) {
   const today  = new Date().toISOString().slice(0,10);
   const todayV = v.filter(x => x.ts.startsWith(today));
@@ -379,25 +502,74 @@ function renderKPIs(v, days) {
   set('kpiTodaySub',     'visits today');
 }
 
-// ── Bar chart ─────────────────────────────────────────────────────────────────
+// -- Bar chart --
+// Auto-buckets: daily <=90d, weekly <=180d, monthly for all-time
 function renderBarChart(v, days) {
-  const chart  = document.getElementById('visitsChart');
-  const labEl  = document.getElementById('visitsLabels');
+  const chart = document.getElementById('visitsChart');
+  const labEl = document.getElementById('visitsLabels');
   if (!v.length) {
     chart.innerHTML = '<span class="no-data">No data for this period</span>';
     labEl.innerHTML = ''; return;
   }
+
+  // Choose bucket granularity
+  const useWeekly   = days > 90  && days <= 180;
+  const useMonthly  = days === 0 && v.length > 0;
+
+  if (useMonthly) {
+    // Monthly bars — one bar per YYYY-MM
+    const byMonth = {};
+    v.forEach(x => { const m = x.ts.slice(0,7); byMonth[m] = (byMonth[m]||0)+1; });
+    const months = Object.keys(byMonth).sort();
+    const max = Math.max(...months.map(m => byMonth[m]), 1);
+    const step = Math.max(1, Math.ceil(months.length / 12));
+    chart.innerHTML = months.map(m => {
+      const n = byMonth[m];
+      const h = Math.max(3, Math.round((n/max)*86));
+      return `<div class="bar" style="height:${h}px"><div class="bar-tip">${m}: ${n}</div></div>`;
+    }).join('');
+    labEl.innerHTML = months.map((m,i) =>
+      `<span>${i%step===0 ? m.slice(0,7) : ''}</span>`
+    ).join('');
+    set('visitsChartTitle', `Visits per month (${v.length} total — all time)`);
+    return;
+  }
+
+  if (useWeekly) {
+    // Weekly bars — group days into Mon-Sun ISO weeks
+    const byWeek = {};
+    v.forEach(x => {
+      const d   = new Date(x.ts);
+      const day = d.getDay(); // 0=Sun
+      const mon = new Date(d); mon.setDate(d.getDate() - ((day + 6) % 7));
+      const key = mon.toISOString().slice(0,10);
+      byWeek[key] = (byWeek[key]||0)+1;
+    });
+    const weeks = Object.keys(byWeek).sort();
+    const max = Math.max(...weeks.map(w => byWeek[w]), 1);
+    const step = Math.max(1, Math.ceil(weeks.length / 10));
+    chart.innerHTML = weeks.map(w => {
+      const n = byWeek[w];
+      const h = Math.max(3, Math.round((n/max)*86));
+      return `<div class="bar" style="height:${h}px"><div class="bar-tip">w/${w.slice(5)}: ${n}</div></div>`;
+    }).join('');
+    labEl.innerHTML = weeks.map((w,i) =>
+      `<span>${i%step===0 ? w.slice(5) : ''}</span>`
+    ).join('');
+    set('visitsChartTitle', `Visits per week (${v.length} total / ${days}d)`);
+    return;
+  }
+
+  // Daily bars (default — <=90d)
   const buckets = {};
   v.forEach(x => { const d = x.ts.slice(0,10); buckets[d] = (buckets[d]||0)+1; });
   const startDate = days ? new Date(Date.now() - (days-1)*86400000) : new Date(v[0].ts);
   const allDays = [];
   for (let d = new Date(startDate); d <= new Date(); d.setDate(d.getDate()+1))
     allDays.push(d.toISOString().slice(0,10));
-
-  const displayDays = allDays.slice(-60);
+  const displayDays = allDays.slice(-90);
   const max  = Math.max(...displayDays.map(d => buckets[d]||0), 1);
   const step = Math.ceil(displayDays.length / 10);
-
   chart.innerHTML = displayDays.map(d => {
     const n = buckets[d]||0;
     const h = Math.max(3, Math.round((n/max)*86));
@@ -406,10 +578,9 @@ function renderBarChart(v, days) {
   labEl.innerHTML = displayDays.map((d,i) =>
     `<span>${i%step===0 ? d.slice(5) : ''}</span>`
   ).join('');
-  set('visitsChartTitle', `Visits over time (${v.length} total${days?' / '+days+'d':''})`);
+  set('visitsChartTitle', `Visits per day (${v.length} total${days?' / '+days+'d':''})` );
 }
-
-// ── Sections ──────────────────────────────────────────────────────────────────
+// -- Sections --
 function renderSections(v) {
   const pills = document.getElementById('sectionPills');
   const secs  = countBy(v.filter(x => x.section), x => x.section);
@@ -420,7 +591,7 @@ function renderSections(v) {
   ).join('');
 }
 
-// ── Generic table ──────────────────────────────────────────────────────────────
+// -- Generic table --
 function renderTable(id, entries, total, limit=10) {
   const el = document.getElementById(id);
   if (!entries?.length) { el.innerHTML = '<tr><td colspan="2" class="no-data">No data yet</td></tr>'; return; }
@@ -438,9 +609,7 @@ function cleanRef(r) {
 }
 function set(id, html) { const el=document.getElementById(id); if(el) el.innerHTML=html; }
 
-// ── Password gate ────────────────────────────────────────────────────────────
-// Password is SHA-256 hashed — plain text never stored in code.
-// sha256("***REDACTED***"):
+// -- Password gate --
 const PW_HASH = 'OLDHASH_REMOVED';
 
 async function hashPw(str) {
@@ -455,30 +624,28 @@ async function checkPassword() {
     sessionStorage.setItem('analytics_auth', '1');
     document.getElementById('gate').style.display = 'none';
     loadVisits();
-    setInterval(loadVisits, 30_000); // auto-refresh every 30s
+    setInterval(loadVisits, 30_000);
   } else {
     const inp = document.getElementById('gateInput');
     const err = document.getElementById('gateErr');
     err.textContent = 'Incorrect password. Try again.';
     inp.classList.remove('shake');
-    void inp.offsetWidth; // reflow to restart animation
+    void inp.offsetWidth;
     inp.classList.add('shake');
     inp.value = '';
     setTimeout(() => inp.classList.remove('shake'), 500);
   }
 }
 
-// Allow pressing Enter in the password field
 document.getElementById('gateInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') checkPassword();
 });
 
-// ── Boot ─────────────────────────────────────────────────────────────────────
-// Auto-unlock if already authenticated this session (survives page refresh)
+// -- Boot --
 if (sessionStorage.getItem('analytics_auth') === '1') {
   document.getElementById('gate').style.display = 'none';
   loadVisits();
-  setInterval(loadVisits, 30_000); // auto-refresh every 30s
+  setInterval(loadVisits, 30_000);
 }
 </script>
 </body>
