@@ -623,7 +623,7 @@ function cleanRef(r) {
 function set(id, html) { const el=document.getElementById(id); if(el) el.innerHTML=html; }
 
 // -- Password gate --
-const PW_HASH = 'OLDHASH_REMOVED';
+const PW_HASH = 'd58577c9b5c9ed3025b7f1a486d4afcc6adc286688bb52d9ad6157724fa3acec';
 
 async function hashPw(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
