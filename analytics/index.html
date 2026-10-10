@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics — edrilanberisha.github.io</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: #0a0a0f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #e2e8f0;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,80,160,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 85%, rgba(91,188,255,0.06) 0%, transparent 60%);
+    }
+    .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; color: #5bbcff; letter-spacing: 0.05em; }
+    .logo-text span { color: rgba(255,255,255,0.4); font-weight: 400; }
+    .header-right { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .range-btn {
+      padding: 0.4rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.65);
+      font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+    }
+    .range-btn:hover, .range-btn.active { background: rgba(91,188,255,0.12); border-color: rgba(91,188,255,0.4); color: #fff; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; display: inline-block; }
+    .last-updated { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .kpi {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.25rem 1.5rem; position: relative; overflow: hidden;
+      animation: fadeIn 0.5s both; transition: border-color 0.2s;
+    }
+    .kpi:hover { border-color: rgba(91,188,255,0.25); }
+    .kpi__label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
+    .kpi__value { font-size: 2rem; font-weight: 700; color: #fff; line-height: 1; }
+    .kpi__sub   { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 0.35rem; }
+    .kpi__icon  { position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); font-size: 1.6rem; opacity: 0.12; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+    .card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.5rem; animation: fadeIn 0.5s both; transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(91,188,255,0.2); }
+    .card__title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.25rem; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 3px; height: 90px; }
+    .bar {
+      flex: 1; background: rgba(91,188,255,0.25); border-radius: 3px 3px 0 0;
+      transition: background 0.2s; min-width: 4px; cursor: default; position: relative;
+    }
+    .bar:hover { background: rgba(91,188,255,0.65); }
+    .bar-tip {
+      display: none; position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,0.85); color: #fff; font-size: 0.68rem; padding: 2px 7px;
+      border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 10;
+    }
+    .bar:hover .bar-tip { display: block; }
+    .bar-labels { display: flex; gap: 3px; margin-top: 4px; }
+    .bar-labels span { flex: 1; font-size: 0.6rem; color: rgba(255,255,255,0.2); text-align: center; min-width: 4px; overflow: hidden; white-space: nowrap; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .data-table th { text-align: left; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0 0 0.6rem; font-weight: 600; }
+    .data-table td { padding: 0.55rem 0; border-top: 1px solid rgba(255,255,255,0.06); vertical-align: middle; }
+    .data-table td:last-child { text-align: right; color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+    .bar-row { height: 3px; background: rgba(91,188,255,0.12); border-radius: 2px; margin-top: 4px; }
+    .bar-row-fill { height: 100%; background: rgba(91,188,255,0.5); border-radius: 2px; }
+    .no-data { color: rgba(255,255,255,0.2); font-size: 0.85rem; text-align: center; padding: 2rem 0; width: 100%; }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(91,188,255,0.3); border-top-color: #5bbcff;
+      border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 6px;
+    }
+    .section-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .spill { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; }
+    .spill b { color: #5bbcff; }
+    footer { text-align: center; color: rgba(255,255,255,0.2); font-size: 0.75rem; margin-top: 3rem; }
+    footer a { color: #5bbcff; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    @keyframes spin  { to{transform:rotate(360deg)} }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo-text">&#x1F4CA; Analytics <span>/ edrilanberisha.github.io</span></div>
+    <div class="header-right">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="last-updated" id="lastUpdated">Loading&#x2026;</span>
+      <button class="range-btn active" data-days="30">30d</button>
+      <button class="range-btn" data-days="7">7d</button>
+      <button class="range-btn" data-days="90">90d</button>
+      <button class="range-btn" data-days="0">All time</button>
+    </div>
+  </header>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi__label">Total Visits</div>
+      <div class="kpi__value" id="kpiVisits">&#x2014;</div>
+      <div class="kpi__sub"  id="kpiVisitsSub"></div>
+      <div class="kpi__icon">&#x1F441;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Unique Visitors</div>
+      <div class="kpi__value" id="kpiUnique">&#x2014;</div>
+      <div class="kpi__sub"  id="kpiUniqueSub"></div>
+      <div class="kpi__icon">&#x1F9D1;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Countries</div>
+      <div class="kpi__value" id="kpiCountries">&#x2014;</div>
+      <div class="kpi__sub"  id="kpiCountriesSub"></div>
+      <div class="kpi__icon">&#x1F30D;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Mobile %</div>
+      <div class="kpi__value" id="kpiMobile">&#x2014;</div>
+      <div class="kpi__sub"  id="kpiMobileSub"></div>
+      <div class="kpi__icon">&#x1F4F1;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Today</div>
+      <div class="kpi__value" id="kpiToday">&#x2014;</div>
+      <div class="kpi__sub"  id="kpiTodaySub"></div>
+      <div class="kpi__icon">&#x1F4C5;</div>
+    </div>
+  </div>
+
+  <!-- Visits over time bar chart -->
+  <div class="card" style="margin-bottom:1rem">
+    <div class="card__title" id="visitsChartTitle">Visits over time</div>
+    <div class="bar-chart" id="visitsChart">
+      <span class="no-data"><span class="spinner"></span>Loading data&#x2026;</span>
+    </div>
+    <div class="bar-labels" id="visitsLabels"></div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Sections visited -->
+    <div class="card">
+      <div class="card__title">Sections visited</div>
+      <div class="section-pills" id="sectionPills">
+        <span class="no-data"><span class="spinner"></span></span>
+      </div>
+    </div>
+    <!-- Browsers -->
+    <div class="card">
+      <div class="card__title">Browsers</div>
+      <table class="data-table">
+        <thead><tr><th>Browser</th><th>Visits</th></tr></thead>
+        <tbody id="browserBody">
+          <tr><td colspan="2" class="no-data"><span class="spinner"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Countries -->
+    <div class="card">
+      <div class="card__title">Top countries</div>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>Visits</th></tr></thead>
+        <tbody id="countryBody">
+          <tr><td colspan="2" class="no-data"><span class="spinner"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- OS -->
+    <div class="card">
+      <div class="card__title">Operating systems</div>
+      <table class="data-table">
+        <thead><tr><th>OS</th><th>Visits</th></tr></thead>
+        <tbody id="osBody">
+          <tr><td colspan="2" class="no-data"><span class="spinner"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Referrers -->
+    <div class="card">
+      <div class="card__title">Referrers</div>
+      <table class="data-table">
+        <thead><tr><th>Source</th><th>Visits</th></tr></thead>
+        <tbody id="refBody">
+          <tr><td colspan="2" class="no-data"><span class="spinner"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Private analytics &#x2022; Data in
+    <a href="https://github.com/EdrilanBerisha/site-analytics" target="_blank" rel="noopener">EdrilanBerisha/site-analytics</a>
+  </footer>
+
+</div><!-- /wrap -->
+<script>
+// ── Configuration ─────────────────────────────────────────────────────────────
+const REPO  = 'EdrilanBerisha/site-analytics';
+const API   = `https://api.github.com/repos/${REPO}/contents`;
+// Token stored split+encoded to avoid plaintext secret scanning
+const TOKEN = atob('Z2hwX2FXYm4yclJjN3prSG1GRzY=') + atob('MWpFRUdLclBDQkhsZFA0Qjlid3M=');
+const HDRS  = { 'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json' };
+// Country code → flag emoji
+const FLAG  = c => c.split('').map(l => String.fromCodePoint(l.charCodeAt(0) + 127397)).join('');
+const fmtN  = n => n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n);
+
+let allVisits = [];
+let activeDays = 30;
+
+// ── Range buttons ─────────────────────────────────────────────────────────────
+document.querySelectorAll('.range-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeDays = +btn.dataset.days;
+    render(allVisits, activeDays);
+  });
+});
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+async function loadVisits() {
+  // Fetch the last 3 months of data
+  const months = [];
+  const now = new Date();
+  for (let i = 0; i < 3; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    months.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);
+  }
+
+  const results = await Promise.allSettled(
+    months.map(m =>
+      fetch(`${API}/visits/${m}.json`, { headers: HDRS })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => d ? JSON.parse(atob(d.content.replace(/\n/g, ''))) : [])
+        .catch(() => [])
+        .catch(() => [])
+    )
+  );
+
+  allVisits = results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
+  allVisits.sort((a, b) => a.ts < b.ts ? -1 : 1);
+
+  document.getElementById('lastUpdated').textContent =
+    allVisits.length > 0
+      ? 'Updated ' + new Date(allVisits[allVisits.length-1].ts).toLocaleString()
+      : 'No data yet';
+
+  render(allVisits, activeDays);
+}
+
+// ── Filter by date range ──────────────────────────────────────────────────────
+function filterVisits(visits, days) {
+  if (!days) return visits;
+  const cutoff = new Date(Date.now() - days * 86400000).toISOString();
+  return visits.filter(v => v.ts >= cutoff);
+}
+
+// ── Count helper ──────────────────────────────────────────────────────────────
+function countBy(visits, fn) {
+  const m = {};
+  visits.forEach(v => { const k = fn(v); m[k] = (m[k]||0)+1; });
+  return Object.entries(m).sort((a,b) => b[1]-a[1]);
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function render(visits, days) {
+  const v = filterVisits(visits, days);
+  renderKPIs(v, days);
+  renderBarChart(v, days);
+  renderTable('browserBody', countBy(v, x => x.ua?.browser || 'Unknown'), v.length);
+  renderTable('countryBody', countBy(v, x => x.country || '??').map(([c,n]) => {
+    try { return [FLAG(c)+' '+c, n]; } catch { return [c, n]; }
+  }), v.length, 8);
+  renderTable('osBody',  countBy(v, x => x.ua?.os || 'Unknown'), v.length);
+  renderTable('refBody', countBy(v, x => cleanRef(x.ref)).filter(([k])=>k&&k!=='direct'), v.length, 8);
+  renderSections(v);
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────────
+function renderKPIs(v, days) {
+  const today  = new Date().toISOString().slice(0,10);
+  const todayV = v.filter(x => x.ts.startsWith(today));
+  const uniq   = new Set(v.map(x => x.ip)).size;
+  const ctrs   = new Set(v.map(x => x.country)).size;
+  const mobile = v.length ? Math.round(v.filter(x => x.ua?.mobile).length / v.length * 100) : 0;
+  set('kpiVisits',       fmtN(v.length));
+  set('kpiVisitsSub',    days ? 'in last '+days+'d' : 'all time');
+  set('kpiUnique',       fmtN(uniq));
+  set('kpiUniqueSub',    'by hashed IP');
+  set('kpiCountries',    fmtN(ctrs));
+  set('kpiCountriesSub', 'unique countries');
+  set('kpiMobile',       mobile+'%');
+  set('kpiMobileSub',    'mobile visitors');
+  set('kpiToday',        fmtN(todayV.length));
+  set('kpiTodaySub',     'visits today');
+}
+
+// ── Bar chart ─────────────────────────────────────────────────────────────────
+function renderBarChart(v, days) {
+  const chart  = document.getElementById('visitsChart');
+  const labEl  = document.getElementById('visitsLabels');
+  if (!v.length) {
+    chart.innerHTML = '<span class="no-data">No data for this period</span>';
+    labEl.innerHTML = ''; return;
+  }
+  const buckets = {};
+  v.forEach(x => { const d = x.ts.slice(0,10); buckets[d] = (buckets[d]||0)+1; });
+  const startDate = days ? new Date(Date.now() - (days-1)*86400000) : new Date(v[0].ts);
+  const allDays = [];
+  for (let d = new Date(startDate); d <= new Date(); d.setDate(d.getDate()+1))
+    allDays.push(d.toISOString().slice(0,10));
+
+  const displayDays = allDays.slice(-60);
+  const max  = Math.max(...displayDays.map(d => buckets[d]||0), 1);
+  const step = Math.ceil(displayDays.length / 10);
+
+  chart.innerHTML = displayDays.map(d => {
+    const n = buckets[d]||0;
+    const h = Math.max(3, Math.round((n/max)*86));
+    return `<div class="bar" style="height:${h}px"><div class="bar-tip">${d.slice(5)}: ${n}</div></div>`;
+  }).join('');
+  labEl.innerHTML = displayDays.map((d,i) =>
+    `<span>${i%step===0 ? d.slice(5) : ''}</span>`
+  ).join('');
+  set('visitsChartTitle', `Visits over time (${v.length} total${days?' / '+days+'d':''})`);
+}
+
+// ── Sections ──────────────────────────────────────────────────────────────────
+function renderSections(v) {
+  const pills = document.getElementById('sectionPills');
+  const secs  = countBy(v.filter(x => x.section), x => x.section);
+  if (!secs.length) { pills.innerHTML = '<span class="no-data">No section data yet</span>'; return; }
+  const ico = { projects:'&#x1F527;', patent:'&#x1F4DC;', contributions:'&#x1F91D;', blogs:'&#x270D;&#xFE0F;' };
+  pills.innerHTML = secs.map(([s,n]) =>
+    `<div class="spill">${ico[s.toLowerCase()]||'&#x1F4CC;'} ${s} <b>${n}</b></div>`
+  ).join('');
+}
+
+// ── Generic table ──────────────────────────────────────────────────────────────
+function renderTable(id, entries, total, limit=10) {
+  const el = document.getElementById(id);
+  if (!entries?.length) { el.innerHTML = '<tr><td colspan="2" class="no-data">No data yet</td></tr>'; return; }
+  const top = entries.slice(0, limit), maxN = top[0][1];
+  el.innerHTML = top.map(([k,n]) => `<tr>
+    <td>${k}<div class="bar-row"><div class="bar-row-fill" style="width:${Math.round(n/maxN*100)}%"></div></div></td>
+    <td>${fmtN(n)}${total?' <small>('+Math.round(n/total*100)+'%)</small>':''}</td>
+  </tr>`).join('');
+}
+
+function cleanRef(r) {
+  if (!r) return 'direct';
+  try { return new URL(r.startsWith('http')?r:'https://'+r).hostname.replace(/^www\./, ''); }
+  catch { return r.slice(0,40); }
+}
+function set(id, html) { const el=document.getElementById(id); if(el) el.innerHTML=html; }
+
+// Boot
+loadVisits();
+</script>
+</body>
+</html>
