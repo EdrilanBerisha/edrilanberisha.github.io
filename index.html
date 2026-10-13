@@ -314,22 +314,30 @@
   // Only observe the real named content sections — not every [id] on the page
   var SECTIONS = ['projects', 'patents', 'contributions', 'blogs'];
 
-  // Track which section scrolls into view (>30% visible)
+  function ping(params) {
+    fetch(WORKER + '?' + new URLSearchParams(params), { method: 'GET', keepalive: true })
+      .catch(function () {});
+  }
+
+  // Track which section scrolls into view (>30% visible) AND fire a ping for it
   if ('IntersectionObserver' in window) {
+    var seenSections = {};
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting && e.intersectionRatio > 0.3) section = e.target.id;
+        if (e.isIntersecting && e.intersectionRatio > 0.3) {
+          section = e.target.id;
+          // Fire a section ping once per section per page-load
+          if (!seenSections[section]) {
+            seenSections[section] = true;
+            ping({ e: 'section', p: '/', s: section });
+          }
+        }
       });
     }, { threshold: 0.3 });
     SECTIONS.forEach(function (id) {
       var el = document.getElementById(id);
       if (el) obs.observe(el);
     });
-  }
-
-  function ping(params) {
-    fetch(WORKER + '?' + new URLSearchParams(params), { method: 'GET', keepalive: true })
-      .catch(function () {});
   }
 
   // ── Page-load ping (after 1.5s so section observer fires first) ──
