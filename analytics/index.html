@@ -324,19 +324,11 @@
 
 </div><!-- /wrap -->
 <script>
-// -- Configuration --
-const REPO  = 'EdrilanBerisha/site-analytics';
-const API   = `https://api.github.com/repos/${REPO}/contents`;
-// Token stored split+encoded to avoid plaintext secret scanning
-const TOKEN = atob('Z2hwX2FXYm4yclJjN3prSG1GRzY=') + atob('MWpFRUdLclBDQkhsZFA0Qjlid3M=');
-const HDRS  = { 'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json' };
-const FLAG  = c => c.split('').map(l => String.fromCodePoint(l.charCodeAt(0) + 127397)).join('');
-const fmtN  = n => n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n);
+const FLAG = c => c.split('').map(l => String.fromCodePoint(l.charCodeAt(0) + 127397)).join('');
+const fmtN = n => n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n);
 
-let allVisits      = [];
-let allEverData    = [];
-let activeDays     = 30;
-let allMonthsAvail = null;
+let allData    = null;
+let activeDays = 30;
 
 // -- Range buttons --
 document.querySelectorAll('.range-btn').forEach(btn => {
@@ -344,86 +336,42 @@ document.querySelectorAll('.range-btn').forEach(btn => {
     document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeDays = +btn.dataset.days;
-    loadVisits();
+    if (allData) {
+      render(allData, activeDays);
+    }
   });
 });
 
-// -- Month helpers --
-function monthsForRange(days) {
-  // Returns array of 'YYYY-MM' strings covering `days` days back from today
-  if (days === 0) return null;
-  const needed = Math.ceil(days / 28) + 1; // +1 buffer month
-  const now = new Date();
-  const months = [];
-  for (let i = 0; i < needed; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    months.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);
-  }
-  return months;
-}
-
-async function fetchMonthFile(m) {
-  try {
-    const r = await fetch(`${API}/visits/${m}.json`, { headers: HDRS });
-    if (!r.ok) return [];
-    const d = await r.json();
-    return JSON.parse(atob(d.content.replace(/\n/g, '')));
-  } catch { return []; }
-}
-
-async function fetchAllAvailableMonths() {
-  // Discover every month file by listing the visits/ directory
-  try {
-    const r = await fetch(`${API}/visits`, { headers: HDRS });
-    if (!r.ok) return [];
-    const files = await r.json();
-    return files
-      .filter(f => f.type === 'file' && /^\d{4}-\d{2}\.json$/.test(f.name))
-      .map(f => f.name.replace('.json',''))
-      .sort();
-  } catch { return []; }
-}
 // -- Data loading --
 async function loadVisits() {
   const dot = document.getElementById('statusDot');
   const lbl = document.getElementById('lastUpdated');
-  dot.classList.remove('dot-ok','dot-err');
+  dot.classList.remove('dot-ok', 'dot-err');
   dot.style.animation = 'pulse 1s infinite';
   lbl.textContent = 'Loading…';
 
-  let months;
-  if (activeDays === 0) {
-    // All-time: discover all available month files
-    if (!allMonthsAvail) allMonthsAvail = await fetchAllAvailableMonths();
-    months = allMonthsAvail.length ? allMonthsAvail : monthsForRange(180);
-  } else {
-    months = monthsForRange(activeDays);
-  }
-
-  const results = await Promise.allSettled(months.map(fetchMonthFile));
-  allVisits = results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
-  allVisits.sort((a, b) => a.ts < b.ts ? -1 : 1);
-
-  // Populate allEverData once (used for the all-time banner)
-  if (!allEverData.length) {
-    if (!allMonthsAvail) allMonthsAvail = await fetchAllAvailableMonths();
-    if (allMonthsAvail.length) {
-      const all = await Promise.allSettled(allMonthsAvail.map(fetchMonthFile));
-      allEverData = all.flatMap(r => r.status === 'fulfilled' ? r.value : []);
-      allEverData.sort((a, b) => a.ts < b.ts ? -1 : 1);
-    } else {
-      allEverData = [...allVisits];
+  try {
+    if (!allData) {
+      const r = await fetch('./data.json');
+      if (!r.ok) throw new Error('fetch failed');
+      allData = await r.json();
+      allData.sort((a, b) => a.ts < b.ts ? -1 : 1);
     }
+
+    const last = allData.length > 0 ? allData[allData.length - 1] : null;
+    lbl.textContent = last ? 'Updated ' + new Date(last.ts).toLocaleString() : 'No data yet';
+    dot.style.animation = '';
+    dot.classList.add(allData.length > 0 ? 'dot-ok' : 'dot-err');
+
+    render(allData, activeDays);
+    renderAllTimeStats(allData);
+  } catch {
+    dot.style.animation = '';
+    dot.classList.add('dot-err');
+    lbl.textContent = 'Failed to load data';
   }
-
-  const last = allVisits.length > 0 ? allVisits[allVisits.length-1] : null;
-  lbl.textContent = last ? 'Updated ' + new Date(last.ts).toLocaleString() : 'No data yet';
-  dot.style.animation = '';
-  dot.classList.add(allVisits.length > 0 ? 'dot-ok' : 'dot-err');
-
-  render(allVisits, activeDays);
-  renderAllTimeStats(allEverData.length ? allEverData : allVisits);
 }
+
 // -- Filter by date range --
 function filterVisits(visits, days) {
   if (!days) return visits;
@@ -460,11 +408,9 @@ function renderAllTimeStats(all) {
   const pvs = all.filter(x => x.event === 'pageview' || !x.event);
   const cls = all.filter(x => x.event === 'click');
 
-  // First visit date
   const first = pvs.length ? pvs[0].ts.slice(0,10) : null;
   set('atFirst', first || '—');
 
-  // Busiest single day
   const byDay = {};
   pvs.forEach(x => { const d = x.ts.slice(0,10); byDay[d] = (byDay[d]||0)+1; });
   const busiestEntry = Object.entries(byDay).sort((a,b)=>b[1]-a[1])[0];
@@ -476,13 +422,12 @@ function renderAllTimeStats(all) {
     set('atBusiestSub', '');
   }
 
-  // All-time visit total
   set('atTotal', fmtN(pvs.length));
 
-  // Most-clicked link ever
   const topClick = countBy(cls, x => x.target || 'unknown')[0];
   set('atTopLink', topClick ? `${topClick[0]} (${topClick[1]})` : '—');
 }
+
 // -- KPIs --
 function renderKPIs(v, days) {
   const today  = new Date().toISOString().slice(0,10);
@@ -503,7 +448,6 @@ function renderKPIs(v, days) {
 }
 
 // -- Bar chart --
-// Auto-buckets: daily <=90d, weekly <=180d, monthly for all-time
 function renderBarChart(v, days) {
   const chart = document.getElementById('visitsChart');
   const labEl = document.getElementById('visitsLabels');
@@ -512,12 +456,10 @@ function renderBarChart(v, days) {
     labEl.innerHTML = ''; return;
   }
 
-  // Choose bucket granularity
-  const useWeekly   = days > 90  && days <= 180;
-  const useMonthly  = days === 0 && v.length > 0;
+  const useWeekly  = days > 90  && days <= 180;
+  const useMonthly = days === 0 && v.length > 0;
 
   if (useMonthly) {
-    // Monthly bars — one bar per YYYY-MM
     const byMonth = {};
     v.forEach(x => { const m = x.ts.slice(0,7); byMonth[m] = (byMonth[m]||0)+1; });
     const months = Object.keys(byMonth).sort();
@@ -536,11 +478,10 @@ function renderBarChart(v, days) {
   }
 
   if (useWeekly) {
-    // Weekly bars — group days into Mon-Sun ISO weeks
     const byWeek = {};
     v.forEach(x => {
       const d   = new Date(x.ts);
-      const day = d.getDay(); // 0=Sun
+      const day = d.getDay();
       const mon = new Date(d); mon.setDate(d.getDate() - ((day + 6) % 7));
       const key = mon.toISOString().slice(0,10);
       byWeek[key] = (byWeek[key]||0)+1;
@@ -560,7 +501,6 @@ function renderBarChart(v, days) {
     return;
   }
 
-  // Daily bars (default — <=90d)
   const buckets = {};
   v.forEach(x => { const d = x.ts.slice(0,10); buckets[d] = (buckets[d]||0)+1; });
   const startDate = days ? new Date(Date.now() - (days-1)*86400000) : new Date(v[0].ts);
@@ -578,20 +518,17 @@ function renderBarChart(v, days) {
   labEl.innerHTML = displayDays.map((d,i) =>
     `<span>${i%step===0 ? d.slice(5) : ''}</span>`
   ).join('');
-  set('visitsChartTitle', `Visits per day (${v.length} total${days?' / '+days+'d':''})` );
+  set('visitsChartTitle', `Visits per day (${v.length} total${days?' / '+days+'d':''})`);
 }
+
 // -- Sections --
-// Counts both: scroll-into-view (section field on pageviews) + nav-tile clicks (event=section)
 function renderSections(v) {
   const pills = document.getElementById('sectionPills');
-  // Combine: pageview with a section field  +  explicit event='section' records
   const counts = {};
   v.forEach(x => {
-    // Scroll-detected: pageview record has a non-empty section
     if ((x.event === 'pageview' || !x.event) && x.section) {
       counts[x.section] = (counts[x.section] || 0) + 1;
     }
-    // Nav-tile click: event=section record
     if (x.event === 'section' && x.section) {
       counts[x.section] = (counts[x.section] || 0) + 1;
     }
@@ -637,7 +574,7 @@ async function checkPassword() {
     sessionStorage.setItem('analytics_auth', '1');
     document.getElementById('gate').style.display = 'none';
     loadVisits();
-    setInterval(loadVisits, 30_000);
+    setInterval(() => { allData = null; loadVisits(); }, 5 * 60 * 1000);
   } else {
     const inp = document.getElementById('gateInput');
     const err = document.getElementById('gateErr');
@@ -658,7 +595,7 @@ document.getElementById('gateInput').addEventListener('keydown', e => {
 if (sessionStorage.getItem('analytics_auth') === '1') {
   document.getElementById('gate').style.display = 'none';
   loadVisits();
-  setInterval(loadVisits, 30_000);
+  setInterval(() => { allData = null; loadVisits(); }, 5 * 60 * 1000);
 }
 </script>
 </body>

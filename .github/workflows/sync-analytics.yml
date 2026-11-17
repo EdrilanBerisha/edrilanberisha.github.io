@@ -1,0 +1,64 @@
+name: Sync Analytics Data
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and merge analytics data
+        env:
+          ANALYTICS_TOKEN: ${{ secrets.ANALYTICS_TOKEN }}
+        run: |
+          python3 - << 'PYEOF'
+          import json, base64, urllib.request, os, hashlib
+
+          token = os.environ['ANALYTICS_TOKEN']
+          headers = {
+              'Authorization': f'token {token}',
+              'Accept': 'application/vnd.github.v3+json'
+          }
+
+          def gh_get(path):
+              req = urllib.request.Request(
+                  f'https://api.github.com/repos/EdrilanBerisha/site-analytics/contents/{path}',
+                  headers=headers
+              )
+              with urllib.request.urlopen(req) as r:
+                  return json.loads(r.read())
+
+          files = gh_get('visits')
+          month_files = sorted(
+              [f for f in files if f['type'] == 'file' and f['name'].endswith('.json')],
+              key=lambda f: f['name']
+          )
+
+          all_events = []
+          for mf in month_files:
+              d = gh_get(f'visits/{mf["name"]}')
+              events = json.loads(base64.b64decode(d['content'].replace('\n', '')).decode())
+              for e in events:
+                  if 'ip' in e:
+                      e['ip'] = hashlib.sha256(e['ip'].encode()).hexdigest()[:16]
+              all_events.extend(events)
+
+          all_events.sort(key=lambda e: e.get('ts', ''))
+          os.makedirs('analytics', exist_ok=True)
+          with open('analytics/data.json', 'w') as f:
+              json.dump(all_events, f, separators=(',', ':'))
+          print(f'Wrote {len(all_events)} events to analytics/data.json')
+          PYEOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add analytics/data.json
+          git diff --staged --quiet || git commit -m "chore: sync analytics data"
+          git push
