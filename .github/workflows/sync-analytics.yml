@@ -7,35 +7,32 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.ANALYTICS_TOKEN }}
-
-      - name: Fetch and merge analytics data
+      - name: Build and publish data.json
         env:
           ANALYTICS_TOKEN: ${{ secrets.ANALYTICS_TOKEN }}
         run: |
           python3 - << 'PYEOF'
-          import json, base64, urllib.request, os, hashlib
+          import json, base64, urllib.request, urllib.error, hashlib, os
 
           token = os.environ['ANALYTICS_TOKEN']
           headers = {
               'Authorization': f'token {token}',
-              'Accept': 'application/vnd.github.v3+json'
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'analytics-sync/1.0',
+              'Content-Type': 'application/json',
           }
 
-          def gh_get(path):
+          def gh_get(repo, path):
               req = urllib.request.Request(
-                  f'https://api.github.com/repos/EdrilanBerisha/site-analytics/contents/{path}',
+                  f'https://api.github.com/repos/{repo}/contents/{path}',
                   headers=headers
               )
               with urllib.request.urlopen(req) as r:
                   return json.loads(r.read())
 
-          files = gh_get('visits')
+          # Read all month files from site-analytics
+          files = gh_get('EdrilanBerisha/site-analytics', 'visits')
           month_files = sorted(
               [f for f in files if f['type'] == 'file' and f['name'].endswith('.json')],
               key=lambda f: f['name']
@@ -43,7 +40,7 @@ jobs:
 
           all_events = []
           for mf in month_files:
-              d = gh_get(f'visits/{mf["name"]}')
+              d = gh_get('EdrilanBerisha/site-analytics', f'visits/{mf["name"]}')
               events = json.loads(base64.b64decode(d['content'].replace('\n', '')).decode())
               for e in events:
                   if 'ip' in e:
@@ -51,16 +48,37 @@ jobs:
               all_events.extend(events)
 
           all_events.sort(key=lambda e: e.get('ts', ''))
-          os.makedirs('analytics', exist_ok=True)
-          with open('analytics/data.json', 'w') as f:
-              json.dump(all_events, f, separators=(',', ':'))
-          print(f'Wrote {len(all_events)} events to analytics/data.json')
-          PYEOF
+          new_content = json.dumps(all_events, separators=(',', ':'))
+          print(f'Total events: {len(all_events)}')
 
-      - name: Commit and push if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add analytics/data.json
-          git diff --staged --quiet || git commit -m "chore: sync analytics data"
-          git push
+          # Get current data.json SHA (needed for update; None if file doesn't exist yet)
+          file_sha = None
+          try:
+              current = gh_get('EdrilanBerisha/edrilanberisha.github.io', 'analytics/data.json')
+              file_sha = current['sha']
+              existing = base64.b64decode(current['content'].replace('\n', '')).decode()
+              if existing == new_content:
+                  print('No changes — skipping commit')
+                  exit(0)
+          except urllib.error.HTTPError as e:
+              if e.code != 404:
+                  raise
+
+          # Commit via Contents API — creates a real commit, triggers Pages deploy
+          body = {
+              'message': 'chore: sync analytics data',
+              'content': base64.b64encode(new_content.encode()).decode(),
+          }
+          if file_sha:
+              body['sha'] = file_sha
+
+          req = urllib.request.Request(
+              'https://api.github.com/repos/EdrilanBerisha/edrilanberisha.github.io/contents/analytics/data.json',
+              data=json.dumps(body).encode(),
+              headers=headers,
+              method='PUT'
+          )
+          with urllib.request.urlopen(req) as r:
+              result = json.loads(r.read())
+          print(f'Committed: {result["commit"]["sha"][:12]}')
+          PYEOF
